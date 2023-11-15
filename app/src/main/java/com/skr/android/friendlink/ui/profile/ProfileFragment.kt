@@ -1,4 +1,4 @@
-package com.skr.android.friendlink.ui.notifications
+package com.skr.android.friendlink.ui.profile
 
 import android.os.Bundle
 import android.view.LayoutInflater

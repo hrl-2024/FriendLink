@@ -1,4 +1,4 @@
-package com.skr.android.friendlink.ui.dashboard
+package com.skr.android.friendlink.ui.friends
 
 import android.os.Bundle
 import android.view.LayoutInflater

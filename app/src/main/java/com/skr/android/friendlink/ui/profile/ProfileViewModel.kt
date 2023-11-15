@@ -1,4 +1,4 @@
-package com.skr.android.friendlink.ui.notifications
+package com.skr.android.friendlink.ui.profile
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

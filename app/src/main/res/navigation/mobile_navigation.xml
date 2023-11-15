@@ -13,13 +13,13 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.skr.android.friendlink.ui.dashboard.FriendsFragment"
+        android:name="com.skr.android.friendlink.ui.friends.FriendsFragment"
         android:label="@string/title_friends"
         tools:layout="@layout/fragment_friends" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.skr.android.friendlink.ui.notifications.ProfileFragment"
+        android:name="com.skr.android.friendlink.ui.profile.ProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile" />
 </navigation>

@@ -1,4 +1,4 @@
-package com.skr.android.friendlink.ui.dashboard
+package com.skr.android.friendlink.ui.friends
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
