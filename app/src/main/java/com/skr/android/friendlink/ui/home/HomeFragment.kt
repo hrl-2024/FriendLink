@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.skr.android.friendlink.R
 import com.skr.android.friendlink.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -28,10 +30,16 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textHome
-        homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+        binding.revealFriendButton.setOnClickListener {
+            findNavController().navigate(
+                R.id.send_message
+            )
         }
+
+        var numNotifications = 3
+        val notificationText = resources.getString(R.string.notification_text, numNotifications)
+        binding.notificationText.text = notificationText
+
         return root
     }
 

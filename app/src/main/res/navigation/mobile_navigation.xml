@@ -9,17 +9,27 @@
         android:id="@+id/navigation_home"
         android:name="com.skr.android.friendlink.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/send_message"
+            app:destination="@id/sendFragment" />
+    </fragment>
 
     <fragment
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_friends"
         android:name="com.skr.android.friendlink.ui.friends.FriendsFragment"
         android:label="@string/title_friends"
         tools:layout="@layout/fragment_friends" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_profile"
         android:name="com.skr.android.friendlink.ui.profile.ProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/sendFragment"
+        android:name="com.skr.android.friendlink.ui.home.SendFragment"
+        android:label="SendFragment"
+        tools:layout="@layout/fragment_send"/>
 </navigation>
