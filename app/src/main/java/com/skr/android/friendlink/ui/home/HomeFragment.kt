@@ -36,6 +36,10 @@ class HomeFragment : Fragment() {
             )
         }
 
+        var numNotifications = 3
+        val notificationText = resources.getString(R.string.notification_text, numNotifications)
+        binding.notificationText.text = notificationText
+
         return root
     }
 
