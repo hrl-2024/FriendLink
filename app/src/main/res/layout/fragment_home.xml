@@ -58,7 +58,7 @@
         app:layout_constraintTop_toBottomOf="@id/day_month" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/heartImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -69,7 +69,7 @@
         app:layout_constraintWidth_percent="0.5" />
 
     <TextView
-        android:id="@+id/notification_text"
+        android:id="@+id/notificationText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -78,10 +78,10 @@
         android:textSize="@dimen/normal_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/heartImage" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/guideText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -89,10 +89,10 @@
         android:textColor="@color/aux_text_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/notification_text" />
+        app:layout_constraintTop_toBottomOf="@+id/notificationText" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/revealFriendButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -102,6 +102,6 @@
         android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/guideText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

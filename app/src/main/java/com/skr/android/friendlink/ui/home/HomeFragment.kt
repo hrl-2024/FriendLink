@@ -7,11 +7,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.skr.android.friendlink.databinding.FragmentHomeLaunchBinding
+import androidx.navigation.fragment.findNavController
+import com.skr.android.friendlink.R
+import com.skr.android.friendlink.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
 
-    private var _binding: FragmentHomeLaunchBinding? = null
+    private var _binding: FragmentHomeBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -25,8 +27,14 @@ class HomeFragment : Fragment() {
         val homeViewModel =
             ViewModelProvider(this).get(HomeViewModel::class.java)
 
-        _binding = FragmentHomeLaunchBinding.inflate(inflater, container, false)
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+        binding.revealFriendButton.setOnClickListener {
+            findNavController().navigate(
+                R.id.send_message
+            )
+        }
 
         return root
     }
