@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
 //
 //        }
 
-        setupActionBarWithNavController(navController, appBarConfiguration)
+//        setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
     private fun checkIfLoggedIn(): Boolean {
