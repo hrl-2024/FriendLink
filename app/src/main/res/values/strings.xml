@@ -15,6 +15,14 @@
     <string name="type_message_hint">Type your message here...</string>
     <string name="to">TO:</string>
 
+    <!--  Resource string name for Send fragment  -->
+
+    <!--  Resource string name for Sent fragment  -->
+    <string name="message_sent">Message Sent!</string>
+    <string name="close">Close</string>
+
+    <!--  Resource string name for friends fragment  -->
+
     <!--  Resource string name for login fragment  -->
     <string name="email">Email</string>
     <string name="password">Password</string>

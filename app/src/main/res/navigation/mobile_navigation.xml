@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.skr.android.friendlink.ui.home.HomeFragment"
+        android:name="com.skr.android.friendlink.ui.home.launch.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -29,9 +29,13 @@
 
     <fragment
         android:id="@+id/sendFragment"
-        android:name="com.skr.android.friendlink.ui.home.SendFragment"
+        android:name="com.skr.android.friendlink.ui.home.send.SendFragment"
         android:label="SendFragment"
-        tools:layout="@layout/fragment_send" />
+        tools:layout="@layout/fragment_send" >
+        <action
+            android:id="@+id/action_send_to_sent"
+            app:destination="@id/sentFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_login"
@@ -67,5 +71,21 @@
         <action
             android:id="@+id/action_register_to_profile"
             app:destination="@id/navigation_profile" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/messageListFragment"
+        android:name="com.skr.android.friendlink.ui.home.feed.MessageListFragment"
+        android:label="MessageListFragment"
+        tools:layout="@layout/fragment_message_list"/>
+
+    <fragment
+        android:id="@+id/sentFragment"
+        android:name="com.skr.android.friendlink.ui.home.send.SentFragment"
+        android:label="SentFragment"
+        tools:layout="@layout/fragment_sent" >
+        <action
+            android:id="@+id/action_sent_to_messageList"
+            app:destination="@id/messageListFragment" />
     </fragment>
 </navigation>
