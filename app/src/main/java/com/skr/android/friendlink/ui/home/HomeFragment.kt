@@ -1,5 +1,6 @@
 package com.skr.android.friendlink.ui.home
 
+import android.icu.text.SimpleDateFormat
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.skr.android.friendlink.R
 import com.skr.android.friendlink.databinding.FragmentHomeBinding
+import java.util.Date
+import java.util.Locale
 
 class HomeFragment : Fragment() {
 
@@ -40,6 +43,11 @@ class HomeFragment : Fragment() {
         val notificationText = resources.getString(R.string.notification_text, numNotifications)
         binding.notificationText.text = notificationText
 
+        // Get the current date
+        val currDate = getCurrDate()
+        // Set the current date to the TextView using the binding
+        binding.dayMonth.text = currDate
+
         return root
     }
 
@@ -47,4 +55,11 @@ class HomeFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+    private fun getCurrDate(): String {
+        val dateFormat = SimpleDateFormat("d MMMM", Locale.getDefault())
+        val currDate = Date(System.currentTimeMillis())
+        return dateFormat.format(currDate)
+    }
+
 }
