@@ -23,14 +23,16 @@ class MainActivity : AppCompatActivity() {
         val navView: BottomNavigationView = binding.navView
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.navigation_home, R.id.navigation_friends, R.id.navigation_profile
-            )
-        )
-//        setupActionBarWithNavController(navController, appBarConfiguration)
+
         navView.setupWithNavController(navController)
+
+        // Hide the bottom navigation bar when user is at Login or Register fragments
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if (destination.id == R.id.navigation_login || destination.id == R.id.navigation_register) {
+                navView.visibility = View.GONE
+            } else {
+                navView.visibility = View.VISIBLE
+            }
+        }
     }
 }

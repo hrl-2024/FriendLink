@@ -38,9 +38,9 @@ class IntroFragment : Fragment() {
 
         // Check if user is signed in
         if (currentUser == null) {
-            findNavController().navigate(R.id.go_to_login)
+            findNavController().navigate(R.id.action_intro_to_login)
         } else {
-            findNavController().navigate(R.id.go_to_home)
+            findNavController().navigate(R.id.action_intro_to_home)
         }
 
         return root

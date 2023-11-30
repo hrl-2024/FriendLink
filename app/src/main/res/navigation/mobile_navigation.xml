@@ -11,7 +11,7 @@
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/send_message"
+            android:id="@+id/action_home_to_send"
             app:destination="@id/sendFragment" />
     </fragment>
 
@@ -52,10 +52,10 @@
         android:label="fragment_intro"
         tools:layout="@layout/fragment_intro" >
         <action
-            android:id="@+id/go_to_home"
+            android:id="@+id/action_intro_to_home"
             app:destination="@id/navigation_home" />
         <action
-            android:id="@+id/go_to_login"
+            android:id="@+id/action_intro_to_login"
             app:destination="@id/navigation_login" />
     </fragment>
 
