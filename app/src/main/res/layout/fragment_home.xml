@@ -39,7 +39,6 @@
         android:id="@+id/day_month"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="7 November"
         android:textColor="@color/normal_text_color"
         android:textSize="@dimen/title"
         app:layout_constraintEnd_toEndOf="parent"
