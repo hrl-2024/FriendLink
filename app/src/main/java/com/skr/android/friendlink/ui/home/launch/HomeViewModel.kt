@@ -1,4 +1,4 @@
-package com.skr.android.friendlink.ui.home
+package com.skr.android.friendlink.ui.home.launch
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
