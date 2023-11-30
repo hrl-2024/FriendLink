@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_intro">
 
     <fragment
         android:id="@+id/navigation_home"
@@ -31,5 +31,41 @@
         android:id="@+id/sendFragment"
         android:name="com.skr.android.friendlink.ui.home.SendFragment"
         android:label="SendFragment"
-        tools:layout="@layout/fragment_send"/>
+        tools:layout="@layout/fragment_send" />
+
+    <fragment
+        android:id="@+id/navigation_login"
+        android:name="com.skr.android.friendlink.ui.profile.LoginFragment"
+        android:label="@string/title_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_login_to_register"
+            app:destination="@id/navigation_register" />
+        <action
+            android:id="@+id/action_login_to_profile"
+            app:destination="@id/navigation_profile" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_intro"
+        android:name="com.skr.android.friendlink.ui.intro.IntroFragment"
+        android:label="fragment_intro"
+        tools:layout="@layout/fragment_intro" >
+        <action
+            android:id="@+id/go_to_home"
+            app:destination="@id/navigation_home" />
+        <action
+            android:id="@+id/go_to_login"
+            app:destination="@id/navigation_login" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_register"
+        android:name="com.skr.android.friendlink.ui.profile.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/action_register_to_profile"
+            app:destination="@id/navigation_profile" />
+    </fragment>
 </navigation>
