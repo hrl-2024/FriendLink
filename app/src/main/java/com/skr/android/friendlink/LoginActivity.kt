@@ -40,6 +40,7 @@ class LoginActivity : AppCompatActivity() {
                     if (task.isSuccessful) {
                         val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
+                        finishAffinity()
                     } else {
             // If sign in fails, display a message to the user.
                          Toast.makeText(baseContext, "Incorrect email or password.",

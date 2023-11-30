@@ -30,27 +30,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_home, R.id.navigation_friends, R.id.navigation_profile
             )
         )
-        // Check if the user is logged in
-        val isLoggedIn = checkIfLoggedIn()
-
-//        if (isLoggedIn) {
-//            // User is logged in, navigate to the main fragment with bottom navigation
-//            navController.navigate(R.id.navigation_home)
-//        } else {
-//
-//            // Hide the bottom navigation initially
-//            navView.visibility = View.GONE
-//
-//            // User is not logged in, navigate to the login fragment
-//            navController.navigate(R.id.loginFragment)
-//
-//        }
-
 //        setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-    }
-    private fun checkIfLoggedIn(): Boolean {
-        // logic to check if the user is logged in
-        return false
     }
 }
