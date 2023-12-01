@@ -20,6 +20,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.skr.android.friendlink.databinding.FragmentProfileBinding
 
+private const val TAG = "ProfileFragment"
+
 class ProfileFragment : Fragment() {
 
     private var _binding: FragmentProfileBinding? = null
@@ -44,6 +46,12 @@ class ProfileFragment : Fragment() {
         // Get current user
         val currentUser = firebaseAuth.currentUser
         val userId = currentUser?.uid
+
+        // Check if user is signed in
+        if (currentUser == null) {
+//            val intent = Intent(requireContext(), LoginActivity::class.java)
+//            startActivity(intent)
+        }
 
         val userDocRef = userId?.let { firestore.collection("users").document(it) }
 

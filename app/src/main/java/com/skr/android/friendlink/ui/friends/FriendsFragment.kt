@@ -22,14 +22,14 @@ class FriendsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val FriendsViewModel =
+        val friendsViewModel =
             ViewModelProvider(this).get(FriendsViewModel::class.java)
 
         _binding = FragmentFriendsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         val textView: TextView = binding.textFriends
-        FriendsViewModel.text.observe(viewLifecycleOwner) {
+        friendsViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
         return root

@@ -3,7 +3,10 @@
     <string name="title_home">Home</string>
     <string name="title_friends">Friends</string>
     <string name="title_profile">Profile</string>
+    <string name="title_login">Login</string>
+    <string name="title_register">Register</string>
 
+    <!--  Resource string name for home fragment  -->
     <string name="number_of_friends">You have %1$d friends</string>
     <string name="notification_text">You have received %1$d messages!</string>
     <string name="send_message_hint">Send yours now to view them</string>
@@ -11,4 +14,31 @@
     <string name="send_message">Send</string>
     <string name="type_message_hint">Type your message here...</string>
     <string name="to">TO:</string>
+
+    <!--  Resource string name for Send fragment  -->
+
+    <!--  Resource string name for Sent fragment  -->
+    <string name="message_sent">Message Sent!</string>
+    <string name="close">Close</string>
+
+    <!--  Resource string name for friends fragment  -->
+
+    <!--  Resource string name for login fragment  -->
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+
+    <!--  Resource string name for register fragment  -->
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="register_button">Register</string>
+    <string name="already_have_account">Already have an account?</string>
+    <string name="login_here">Login here</string>
+
+    <!--  Resource string name for profile fragment  -->
+    <string name="not_login">You have not login yet</string>
+
+
 </resources>
