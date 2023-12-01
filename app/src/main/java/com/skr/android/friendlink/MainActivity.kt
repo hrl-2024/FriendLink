@@ -23,34 +23,16 @@ class MainActivity : AppCompatActivity() {
         val navView: BottomNavigationView = binding.navView
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.navigation_home, R.id.navigation_friends, R.id.navigation_profile
-            )
-        )
-        // Check if the user is logged in
-        val isLoggedIn = checkIfLoggedIn()
 
-//        if (isLoggedIn) {
-//            // User is logged in, navigate to the main fragment with bottom navigation
-//            navController.navigate(R.id.navigation_home)
-//        } else {
-//
-//            // Hide the bottom navigation initially
-//            navView.visibility = View.GONE
-//
-//            // User is not logged in, navigate to the login fragment
-//            navController.navigate(R.id.loginFragment)
-//
-//        }
-
-//        setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-    }
-    private fun checkIfLoggedIn(): Boolean {
-        // logic to check if the user is logged in
-        return false
+
+        // Hide the bottom navigation bar when user is at Login or Register fragments
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if (destination.id == R.id.navigation_login || destination.id == R.id.navigation_register) {
+                navView.visibility = View.GONE
+            } else {
+                navView.visibility = View.VISIBLE
+            }
+        }
     }
 }
