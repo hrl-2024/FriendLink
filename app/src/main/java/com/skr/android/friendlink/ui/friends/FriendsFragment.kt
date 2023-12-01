@@ -4,10 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.skr.android.friendlink.databinding.FragmentFriendsBinding
+import kotlinx.coroutines.launch
 
 class FriendsFragment : Fragment() {
 
@@ -16,6 +21,8 @@ class FriendsFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+
+    private val friendsViewModel: FriendsViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,13 +33,21 @@ class FriendsFragment : Fragment() {
             ViewModelProvider(this).get(FriendsViewModel::class.java)
 
         _binding = FragmentFriendsBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+        binding.friendRecyclerView.layoutManager = LinearLayoutManager(context)
 
-        val textView: TextView = binding.textFriends
-        friendsViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                friendsViewModel.friends.collect { friends ->
+                    binding.friendRecyclerView.adapter = FriendListAdapter(friends)
+                }
+            }
         }
-        return root
     }
 
     override fun onDestroyView() {
