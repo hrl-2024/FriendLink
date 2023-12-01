@@ -6,4 +6,6 @@
     <dimen name="subtitle">20sp</dimen>
     <dimen name="normal_text">18sp</dimen>
     <dimen name="aux_text">12sp</dimen>
+    <dimen name="contact_name">18sp</dimen>
+    <dimen name="contact_number">14sp</dimen>
 </resources>
