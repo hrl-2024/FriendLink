@@ -45,8 +45,9 @@ class RegisterFragment : Fragment() {
             val password = binding.password.text.toString().trim()
             val firstName = binding.firstName.text.toString().trim()
             val lastName = binding.lastName.text.toString().trim()
+            val phoneNumber = binding.phoneNumber.text.toString().trim()
 
-            if (email.isEmpty() || password.isEmpty() || firstName.isEmpty() || lastName.isEmpty()) {
+            if (email.isEmpty() || password.isEmpty() || firstName.isEmpty() || lastName.isEmpty() || phoneNumber.isEmpty()) {
                 Snackbar.make(it, "All fields are required", Snackbar.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
@@ -63,7 +64,8 @@ class RegisterFragment : Fragment() {
                             val newUser = hashMapOf(
                                 "first" to firstName,
                                 "last" to lastName,
-                                "email" to email
+                                "email" to email,
+                                "phoneNumber" to phoneNumber
                             )
                             val documentReference: DocumentReference =
                                 firestore.collection("users").document(uid)

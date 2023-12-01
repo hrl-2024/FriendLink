@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import com.skr.android.friendlink.MainActivity
 import com.skr.android.friendlink.databinding.FragmentProfileBinding
 
 private const val TAG = "ProfileFragment"
@@ -60,12 +61,14 @@ class ProfileFragment : Fragment() {
                 val firstName = document.getString("first")
                 val lastName = document.getString("last")
                 val email = currentUser.email
+                val phoneNumber = document.getString("phoneNumber")
                 val profilepicURL = currentUser.photoUrl
 
                 // Update UI with retrieved user data
                 binding.firstName.text = "First Name: $firstName"
                 binding.lastName.text = "Last Name: $lastName"
                 binding.email.text = "Email: $email"
+                binding.phoneNumber.text = "Phone Number: $phoneNumber"
                 if (profilepicURL != null) {
                     Glide.with(requireContext())
                         .load(profilepicURL)
@@ -76,6 +79,13 @@ class ProfileFragment : Fragment() {
         binding.profilePic.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             getContent.launch(intent)
+        }
+
+        binding.logout.setOnClickListener {
+            firebaseAuth.signOut()
+            val intent = Intent(requireContext(), MainActivity::class.java)
+            startActivity(intent)
+
         }
 
         return root
