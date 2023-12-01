@@ -11,6 +11,6 @@
     <color name="normal_text_color">#080808</color>
     <color name="aux_text_color">#949494</color>
     <color name="box_shadow">#FFF1EA</color>
-
+    <color name="grey">#898989</color>
     <color name="color_primary">#FF7D32</color>
 </resources>
