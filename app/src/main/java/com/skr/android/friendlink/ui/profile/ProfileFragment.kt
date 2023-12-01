@@ -14,10 +14,13 @@ import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import com.skr.android.friendlink.MainActivity
+import com.skr.android.friendlink.R
 import com.skr.android.friendlink.databinding.FragmentProfileBinding
 
 private const val TAG = "ProfileFragment"
@@ -47,12 +50,6 @@ class ProfileFragment : Fragment() {
         val currentUser = firebaseAuth.currentUser
         val userId = currentUser?.uid
 
-        // Check if user is signed in
-        if (currentUser == null) {
-//            val intent = Intent(requireContext(), LoginActivity::class.java)
-//            startActivity(intent)
-        }
-
         val userDocRef = userId?.let { firestore.collection("users").document(it) }
 
         userDocRef?.get()?.addOnSuccessListener { document ->
@@ -60,12 +57,14 @@ class ProfileFragment : Fragment() {
                 val firstName = document.getString("first")
                 val lastName = document.getString("last")
                 val email = currentUser.email
+                val phoneNumber = document.getString("phoneNumber")
                 val profilepicURL = currentUser.photoUrl
 
                 // Update UI with retrieved user data
                 binding.firstName.text = "First Name: $firstName"
                 binding.lastName.text = "Last Name: $lastName"
                 binding.email.text = "Email: $email"
+                binding.phoneNumber.text = "Phone Number: $phoneNumber"
                 if (profilepicURL != null) {
                     Glide.with(requireContext())
                         .load(profilepicURL)
@@ -76,6 +75,11 @@ class ProfileFragment : Fragment() {
         binding.profilePic.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             getContent.launch(intent)
+        }
+
+        binding.logout.setOnClickListener {
+            firebaseAuth.signOut()
+            findNavController().navigate(R.id.action_profile_to_intro) // to intro (to safe check if we are actually logged out)
         }
 
         return root
