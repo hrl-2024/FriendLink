@@ -14,11 +14,13 @@ import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.skr.android.friendlink.MainActivity
+import com.skr.android.friendlink.R
 import com.skr.android.friendlink.databinding.FragmentProfileBinding
 
 private const val TAG = "ProfileFragment"
@@ -47,12 +49,6 @@ class ProfileFragment : Fragment() {
         // Get current user
         val currentUser = firebaseAuth.currentUser
         val userId = currentUser?.uid
-
-        // Check if user is signed in
-        if (currentUser == null) {
-//            val intent = Intent(requireContext(), LoginActivity::class.java)
-//            startActivity(intent)
-        }
 
         val userDocRef = userId?.let { firestore.collection("users").document(it) }
 
@@ -83,9 +79,7 @@ class ProfileFragment : Fragment() {
 
         binding.logout.setOnClickListener {
             firebaseAuth.signOut()
-            val intent = Intent(requireContext(), MainActivity::class.java)
-            startActivity(intent)
-
+            findNavController().navigate(R.id.action_profile_to_intro) // to intro (to safe check if we are actually logged out)
         }
 
         return root

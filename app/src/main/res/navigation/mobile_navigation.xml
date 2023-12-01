@@ -25,7 +25,11 @@
         android:id="@+id/navigation_profile"
         android:name="com.skr.android.friendlink.ui.profile.ProfileFragment"
         android:label="@string/title_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profile_to_intro"
+            app:destination="@id/navigation_intro" />
+    </fragment>
 
     <fragment
         android:id="@+id/sendFragment"
