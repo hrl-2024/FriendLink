@@ -38,5 +38,8 @@
 
     <!--  Resource string name for profile fragment  -->
     <string name="not_login">You have not login yet</string>
-
+    <string name="sent">Sent</string>
+    <string name="received">Received</string>
+    <string name="placeholder_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
+    <string name="placeholder_date">December 1</string>
 </resources>
