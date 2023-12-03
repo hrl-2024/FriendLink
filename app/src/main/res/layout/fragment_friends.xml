@@ -4,40 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/contact_background"
     tools:context=".ui.friends.FriendsFragment">
-
-    <ImageView
-        android:id="@+id/backgroundImage"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/contact_background" />
 
     <TextView
         android:id="@+id/text_friends"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:layout_marginBottom="20dp"
         android:layout_marginStart="40dp"
+        android:layout_marginTop="32dp"
         android:text="@string/title_contact"
         android:textColor="@color/normal_text_color"
         android:textSize="@dimen/title"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/searchCardView" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/searchCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        app:cardBackgroundColor="@color/box_shadow"
         app:cardCornerRadius="15dp"
         app:cardElevation="5dp"
-        app:cardBackgroundColor="@color/box_shadow"
-        app:layout_constraintBottom_toTopOf="@+id/profileContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_friends">
@@ -46,51 +36,20 @@
             android:id="@+id/searchView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:queryHint="Search..."
-            android:background="@color/white" />
+            android:background="@color/white"
+            android:queryHint="Search..." />
     </androidx.cardview.widget.CardView>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/profileContainer"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/friend_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        app:layout_constraintTop_toBottomOf="@+id/searchCardView">
-
-        <ImageView
-            android:id="@+id/profileImg"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:src="@drawable/notification" />
-
-        <TextView
-            android:id="@+id/contactName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:textSize="@dimen/contact_name"
-            app:layout_constraintStart_toEndOf="@+id/profileImg"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/profileImg"
-            android:text="Kristi Li"
-            android:textColor="@color/black" />
-
-        <TextView
-            android:id="@+id/contactPhoneNumber"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginStart="8dp"
-            android:textSize="@dimen/contact_number"
-            app:layout_constraintStart_toEndOf="@+id/profileImg"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/contactName"
-            android:text="123-456-7890" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchCardView"
+        tools:listitem="@layout/list_item_friend" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

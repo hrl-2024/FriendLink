@@ -42,6 +42,11 @@ class LoginFragment : Fragment() {
             val email = binding.email.text.toString()
             val password = binding.password.text.toString()
 
+            if (email == "" || password == "") {
+                Snackbar.make(it, "All fields are required", Snackbar.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
             firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(requireActivity()) { task ->
                     if (task.isSuccessful) {
