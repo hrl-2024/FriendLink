@@ -11,6 +11,7 @@
     <string name="notification_text">You have received %1$d messages!</string>
     <string name="send_message_hint">Send yours now to view them</string>
     <string name="reveal_friend_button_text">Reveal friend of the day</string>
+    <string name="no_friend_text">You have no friends yet</string>
     <string name="send_message">Send</string>
     <string name="type_message_hint">Type your message here...</string>
     <string name="to">TO:</string>
