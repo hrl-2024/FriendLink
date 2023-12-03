@@ -1,24 +1,57 @@
 package com.skr.android.friendlink.ui.home.feed
 
 import androidx.lifecycle.ViewModel
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldPath
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 class MessageListViewModel : ViewModel() {
+    // Replace MutableLiveData with MutableStateFlow for messages
+    private val _messages: MutableStateFlow<List<Message>> = MutableStateFlow(emptyList())
 
-    private val _messages : MutableStateFlow<List<Message>> = MutableStateFlow(emptyList())
+    // Expose StateFlow instead of LiveData for observing messages
+    val messages: StateFlow<List<Message>>
+        get() = _messages.asStateFlow()
 
-    val messages : StateFlow<List<Message>> get() = _messages.asStateFlow()
 
-    init {
-        // collect all messages from the repository
+    // Function to fetch messages from Firestore
+    fun fetchMessages() {
+        val firestore = FirebaseFirestore.getInstance()
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        val userId = currentUser?.uid
 
-        // Right now: some fake data
-        _messages.value = listOf(
-            Message("1", "Alice", "Hello", java.util.Date()),
-            Message("2", "Bob", "Hi", java.util.Date()),
-            Message("3", "Charlie", "Hey", java.util.Date())
-        )
+        val userDocRef = userId?.let { firestore.collection("users").document(it) }
+
+        userDocRef?.get()?.addOnSuccessListener { documentSnapshot ->
+            if (documentSnapshot != null && documentSnapshot.exists()) {
+                val receivedList = documentSnapshot.get("receivedList") as? List<String> ?: emptyList()
+
+                firestore.collection("messages")
+                    .whereIn(FieldPath.documentId(), receivedList)
+                    .get()
+                    .addOnSuccessListener { querySnapshot ->
+                        val messages = mutableListOf<Message>()
+
+                        for (document in querySnapshot.documents) {
+                            val message = Message(
+                                sender = document.getString("sender") ?: "",
+                                receiver = document.getString("receiver") ?: "",
+                                message = document.getString("message") ?: "",
+                                timestamp = document.getLong("timestamp") ?: 0L
+                            )
+                            messages.add(message)
+                        }
+
+                        // Update MutableStateFlow with fetched messages
+                        _messages.value = messages
+                    }
+                    .addOnFailureListener { e ->
+                        // Handle failure in fetching messages from Firestore
+                    }
+            }
+        }
     }
 }

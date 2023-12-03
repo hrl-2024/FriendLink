@@ -46,6 +46,10 @@ class RegisterFragment : Fragment() {
             val firstName = binding.firstName.text.toString().trim()
             val lastName = binding.lastName.text.toString().trim()
             val phoneNumber = binding.phoneNumber.text.toString().trim()
+            val friendList = listOf<String>()
+            val sentList = listOf<String>()
+            val receivedList = listOf<String>()
+            val profilePicture = "https://firebasestorage.googleapis.com/v0/b/friendlink-62eae.appspot.com/o/profilepics%2Fdefault.jpeg?alt=media&token=ee8f0493-5a20-41c2-9d52-3a69f5f97a78"
 
             if (email.isEmpty() || password.isEmpty() || firstName.isEmpty() || lastName.isEmpty() || phoneNumber.isEmpty()) {
                 Snackbar.make(it, "All fields are required", Snackbar.LENGTH_SHORT).show()
@@ -65,7 +69,11 @@ class RegisterFragment : Fragment() {
                                 "first" to firstName,
                                 "last" to lastName,
                                 "email" to email,
-                                "phoneNumber" to phoneNumber
+                                "phoneNumber" to phoneNumber,
+                                "friendList" to friendList,
+                                "sentList" to sentList,
+                                "receivedList" to receivedList,
+                                "profilePicture" to profilePicture
                             )
                             val documentReference: DocumentReference =
                                 firestore.collection("users").document(uid)
