@@ -86,7 +86,7 @@ class FriendsFragment : Fragment() {
             null,
             null,
             null,
-            null
+            "DISPLAY_NAME ASC"
         )
 
         if (cursor!!.count > 0) {
