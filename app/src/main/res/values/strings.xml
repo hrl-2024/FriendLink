@@ -42,4 +42,6 @@
     <string name="received">Received</string>
     <string name="placeholder_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
     <string name="placeholder_date">December 1</string>
+    <string name="placeholder_phone_number">123-456-789</string>
+    <string name="logout_button_description">This is a button for users to be able to log out of their account.</string>
 </resources>

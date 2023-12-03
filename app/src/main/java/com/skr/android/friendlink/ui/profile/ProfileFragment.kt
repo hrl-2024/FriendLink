@@ -61,10 +61,9 @@ class ProfileFragment : Fragment() {
                 val profilepicURL = currentUser.photoUrl
 
                 // Update UI with retrieved user data
-                binding.firstName.text = "First Name: $firstName"
-                binding.lastName.text = "Last Name: $lastName"
-                binding.email.text = "Email: $email"
-                binding.phoneNumber.text = "Phone Number: $phoneNumber"
+                binding.firstName.text = "$firstName"
+                binding.lastName.text = "$lastName"
+                binding.phoneNumber.text = "$phoneNumber"
                 if (profilepicURL != null) {
                     Glide.with(requireContext())
                         .load(profilepicURL)
