@@ -6,6 +6,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -58,7 +59,8 @@ class ProfileFragment : Fragment() {
                 val lastName = document.getString("last")
                 val email = currentUser.email
                 val phoneNumber = document.getString("phoneNumber")
-                val profilepicURL = currentUser.photoUrl
+//                val profilepicURL = currentUser.photoUrl
+                val profilepicURL = document.getString("profilePicture")
 
                 // Update UI with retrieved user data
                 binding.firstName.text = "First Name: $firstName"
@@ -100,6 +102,9 @@ class ProfileFragment : Fragment() {
         profilePicRef?.putFile(selectedImageUri)?.addOnSuccessListener {
             profilePicRef.downloadUrl.addOnSuccessListener { uri ->
                 val profilePicURL = uri.toString()
+                val userDocRef = userId?.let { firestore.collection("users").document(it) }
+                userDocRef?.update("profilePicture", profilePicURL)
+
                 val profileUpdates = com.google.firebase.auth.UserProfileChangeRequest.Builder()
                     .setPhotoUri(Uri.parse(profilePicURL))
                     .build()
