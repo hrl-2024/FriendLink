@@ -18,7 +18,7 @@ class MessageListViewModel : ViewModel() {
 
 
     // Function to fetch messages from Firestore
-    fun fetchMessages() {
+    fun fetchMessages(forSent : Boolean = false) {
         val firestore = FirebaseFirestore.getInstance()
         val currentUser = FirebaseAuth.getInstance().currentUser
         val userId = currentUser?.uid
@@ -27,10 +27,17 @@ class MessageListViewModel : ViewModel() {
 
         userDocRef?.get()?.addOnSuccessListener { documentSnapshot ->
             if (documentSnapshot != null && documentSnapshot.exists()) {
-                val receivedList = documentSnapshot.get("receivedList") as? List<String> ?: emptyList()
+
+                var messageList = emptyList<String>()
+
+                if (forSent) {
+                    messageList = documentSnapshot.get("sentList") as? List<String> ?: emptyList()
+                } else {
+                    messageList = documentSnapshot.get("receivedList") as? List<String> ?: emptyList()
+                }
 
                 firestore.collection("messages")
-                    .whereIn(FieldPath.documentId(), receivedList)
+                    .whereIn(FieldPath.documentId(), messageList)
                     .get()
                     .addOnSuccessListener { querySnapshot ->
                         val messages = mutableListOf<Message>()
