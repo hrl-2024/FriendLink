@@ -1,28 +1,31 @@
 package com.skr.android.friendlink.ui.profile
 
+import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
-import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
-import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
-import com.skr.android.friendlink.MainActivity
 import com.skr.android.friendlink.R
 import com.skr.android.friendlink.databinding.FragmentProfileBinding
+import com.skr.android.friendlink.ui.home.feed.MessageListAdapter
+import com.skr.android.friendlink.ui.home.feed.MessageListViewModel
+import kotlinx.coroutines.launch
 
 private const val TAG = "ProfileFragment"
 
@@ -35,6 +38,9 @@ class ProfileFragment : Fragment() {
     private lateinit var firestore: FirebaseFirestore
     private lateinit var storage: FirebaseStorage
 
+    private val messageListViewModel: MessageListViewModel by viewModels()
+
+    @SuppressLint("ResourceAsColor")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -83,7 +89,35 @@ class ProfileFragment : Fragment() {
             findNavController().navigate(R.id.action_profile_to_intro) // to intro (to safe check if we are actually logged out)
         }
 
+        messageListViewModel.fetchMessages(forSent = true)
+
+        binding.sendButton.setOnClickListener {
+            // Fetch sent messages
+            messageListViewModel.fetchMessages(forSent = true)
+        }
+
+        binding.receivedButton.setOnClickListener {
+            // Fetch received messages
+            messageListViewModel.fetchMessages()
+        }
+
+        // For recyclerView
+        binding.messageRecyclerView.layoutManager = LinearLayoutManager(context)
+
         return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                messageListViewModel.messages.collect { messages ->
+                    // If messages exist, display the RecyclerView with the adapter
+                    binding.messageRecyclerView.adapter = MessageListAdapter(requireContext(), messages)
+                }
+            }
+        }
     }
 
     private val getContent = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
