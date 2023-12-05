@@ -56,7 +56,9 @@
             app:destination="@id/navigation_register" />
         <action
             android:id="@+id/action_login_to_profile"
-            app:destination="@id/navigation_profile" />
+            app:destination="@id/navigation_profile"
+            app:enterAnim="@android:anim/fade_in"/>
+
     </fragment>
 
     <fragment
@@ -96,5 +98,8 @@
         <action
             android:id="@+id/action_sent_to_messageList"
             app:destination="@id/messageListFragment" />
+        <action
+            android:id="@+id/action_sentFragment_self"
+            app:destination="@id/sentFragment" />
     </fragment>
 </navigation>

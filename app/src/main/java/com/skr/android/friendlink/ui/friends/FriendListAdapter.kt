@@ -3,12 +3,21 @@ package com.skr.android.friendlink.ui.friends
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.skr.android.friendlink.R
 import com.skr.android.friendlink.databinding.ListItemFriendBinding
 
 class FriendHolder (val binding: ListItemFriendBinding) : RecyclerView.ViewHolder(binding.root) {
     fun bind(friend: Friend) {
-        binding.friendName.text = friend.name
+        val name = friend.firstName + " " + friend.lastName
+        binding.friendName.text = name
         binding.friendPhoneNumber.text = friend.phoneNumber
+        // Set different background color based on registration status
+        val backgroundColor = if (!friend.registered) {
+            binding.root.context.getColor(R.color.grey)
+        } else {
+            binding.root.context.getColor(R.color.white)
+        }
+        binding.root.setBackgroundColor(backgroundColor)
     }
 }
 
