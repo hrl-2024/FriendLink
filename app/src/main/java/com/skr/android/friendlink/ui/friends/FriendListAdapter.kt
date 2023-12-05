@@ -7,7 +7,7 @@ import com.skr.android.friendlink.R
 import com.skr.android.friendlink.databinding.ListItemFriendBinding
 
 class FriendHolder (val binding: ListItemFriendBinding) : RecyclerView.ViewHolder(binding.root) {
-    fun bind(friend: Friend) {
+    fun bind(friend: Friend, clickListener: (Friend) -> Unit) {
         val name = friend.firstName + " " + friend.lastName
         binding.friendName.text = name
         binding.friendPhoneNumber.text = friend.phoneNumber
@@ -17,11 +17,15 @@ class FriendHolder (val binding: ListItemFriendBinding) : RecyclerView.ViewHolde
         } else {
             binding.root.context.getColor(R.color.white)
         }
+
         binding.root.setBackgroundColor(backgroundColor)
+        binding.root.setOnClickListener {
+            clickListener(friend)
+        }
     }
 }
 
-class FriendListAdapter (private val friends: List<Friend>) : RecyclerView.Adapter<FriendHolder>() {
+class FriendListAdapter (private val friends: List<Friend>,private val registeredClickListener: (Friend) -> Unit, private val unregisteredClickListener: (Friend) -> Unit) : RecyclerView.Adapter<FriendHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FriendHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -31,7 +35,12 @@ class FriendListAdapter (private val friends: List<Friend>) : RecyclerView.Adapt
 
     override fun onBindViewHolder(holder: FriendHolder, position: Int) {
         val friend = friends[position]
-        holder.bind(friend)
+        val clickListener: (Friend) -> Unit = if (friend.registered) {
+            registeredClickListener
+        } else {
+            unregisteredClickListener
+        }
+        holder.bind(friend, clickListener)
     }
 
     override fun getItemCount() = friends.size

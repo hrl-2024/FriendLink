@@ -1,8 +1,11 @@
 package com.skr.android.friendlink.ui.friends
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.ContentResolver
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +21,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -86,8 +90,16 @@ class FriendsFragment : Fragment() {
                         Log.d(TAG, "${friendsList}")
 
                         Log.d(TAG, "Got ${friendsList.size} phone numbers from contacts")
-
-                        binding.friendRecyclerView.adapter = FriendListAdapter(friendsList)
+                        val friendListAdapter = FriendListAdapter(
+                            friendsList,
+                            registeredClickListener = { clickedFriend ->
+                                showFriendRequestDialog(clickedFriend)
+                            },
+                            unregisteredClickListener = { clickedFriend ->
+                                sendSMSDialog(clickedFriend)
+                            }
+                        )
+                        binding.friendRecyclerView.adapter = friendListAdapter
                     }
                     .addOnFailureListener { exception ->
                         // Handle failure
@@ -97,6 +109,54 @@ class FriendsFragment : Fragment() {
         }
     }
 
+    private fun showFriendRequestDialog(friend: Friend) {
+        AlertDialog.Builder(requireContext())
+            .setTitle("Add Friend")
+            .setMessage("Do you want to become friends with ${friend.firstName} ${friend.lastName}?")
+            .setPositiveButton("Add") { _, _ ->
+                // Implement the logic to send a friend request
+                // Example: You can perform the necessary action here
+                addFriend(friend)
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
+    private fun addFriend(friend: Friend) {
+        val currentUser = firebaseAuth.currentUser
+        val currentUserId = currentUser?.uid
+        val userDocRef = currentUserId?.let { firestore.collection("users").document(it) }
+        userDocRef?.get()?.addOnSuccessListener { documentSnapshot ->
+            if (documentSnapshot != null && documentSnapshot.exists()) {
+                val friendList = documentSnapshot.get("friendList") as? List<String> ?: emptyList()
+                if (friendList.contains(friend.id)) {
+                    AlertDialog.Builder(requireContext())
+                        .setTitle("Already Friends")
+                        .setMessage("You are already friends with ${friend.firstName} ${friend.lastName}")
+                        .setPositiveButton("OK", null)
+                        .show()
+                }
+                    else {
+                    // Friend is not in the friend list, proceed to add the friend
+                    val newFriendList = friendList.toMutableList()
+                    newFriendList.add(friend.id)
+                    userDocRef.update("friendList", newFriendList)
+
+                    // Show dialog to send friend request
+                    showFriendRequestDialog(friend)
+                }
+            }
+        }
+    }
+
+    private fun sendSMSDialog(friend: Friend) {
+
+        val smsIntent = Intent(Intent.ACTION_SENDTO).apply {
+            data = Uri.parse("smsto:${friend.phoneNumber}")
+            putExtra("sms_body", "Hey! I'm using FriendLink, a new social media app. Download it!")
+        }
+        startActivity(smsIntent)
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
