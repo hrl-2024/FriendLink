@@ -20,6 +20,7 @@ class MessageHolder (val binding: ListItemMessageBinding) : RecyclerView.ViewHol
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var firestore: FirebaseFirestore
     private lateinit var storage: FirebaseStorage
+
     fun bind(context: Context, message: Message) {
         firebaseAuth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
@@ -47,13 +48,10 @@ class MessageHolder (val binding: ListItemMessageBinding) : RecyclerView.ViewHol
                     .into(binding.messageSenderPic)
             }
         }
-
-
-
     }
 }
 
-class MessageListAdapter (private val context: Context,private val messages: List<Message>) : RecyclerView.Adapter<MessageHolder>() {
+class MessageListAdapter (private val context: Context, private val messages: List<Message>) : RecyclerView.Adapter<MessageHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessageHolder {
         val inflater = LayoutInflater.from(parent.context)
