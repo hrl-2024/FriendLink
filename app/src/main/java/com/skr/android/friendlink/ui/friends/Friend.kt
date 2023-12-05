@@ -1,9 +1,11 @@
 package com.skr.android.friendlink.ui.friends
 
 data class Friend(
-    val id: String,
-    val profilePicture : String,
-    val name: String,
-    val email: String,
-    val phoneNumber: String
+    var id: String,
+    var firstName: String,
+    var lastName: String,
+    var email: String,
+    var phoneNumber: String,
+    var profilePicture : String,
+    var registered: Boolean
 )
