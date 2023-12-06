@@ -82,6 +82,10 @@
         <action
             android:id="@+id/action_register_to_profile"
             app:destination="@id/navigation_profile" />
+        <action
+            android:id="@+id/action_register_to_login"
+            app:destination="@id/navigation_login"
+            app:enterAnim="@anim/nav_default_enter_anim" />
     </fragment>
 
     <fragment

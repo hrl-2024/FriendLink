@@ -33,9 +33,11 @@
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
     <string name="confirm_password">Confirm Password</string>
+    <string name="phone_number">Phone Number</string>
     <string name="register_button">Register</string>
     <string name="already_have_account">Already have an account?</string>
     <string name="login_here">Login here</string>
+    <string name="createAccount">Create An Account</string>
 
     <!--  Resource string name for profile fragment  -->
     <string name="not_login">You have not login yet</string>
