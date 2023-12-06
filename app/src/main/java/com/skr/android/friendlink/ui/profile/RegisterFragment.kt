@@ -40,6 +40,10 @@ class RegisterFragment : Fragment() {
         firebaseAuth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
 
+        binding.loginButton.setOnClickListener{
+            findNavController().navigate(R.id.action_register_to_login)
+        }
+
         binding.registerButton.setOnClickListener {
             val email = binding.email.text.toString().trim()
             val password = binding.password.text.toString().trim()
@@ -51,6 +55,7 @@ class RegisterFragment : Fragment() {
                 Snackbar.make(it, "All fields are required", Snackbar.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
+
 
             firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(requireActivity()) { task ->

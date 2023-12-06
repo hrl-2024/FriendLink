@@ -10,7 +10,6 @@
     <ImageView
         android:id="@+id/messageSenderPic"
         android:layout_width="49dp"
-
         android:layout_height="49dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
