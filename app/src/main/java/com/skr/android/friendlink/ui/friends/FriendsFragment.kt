@@ -126,6 +126,8 @@ class FriendsFragment : Fragment() {
         val currentUser = firebaseAuth.currentUser
         val currentUserId = currentUser?.uid
         val userDocRef = currentUserId?.let { firestore.collection("users").document(it) }
+        val friendDocRef = friend.id?.let { firestore.collection("users").document(it) }
+
         userDocRef?.get()?.addOnSuccessListener { documentSnapshot ->
             if (documentSnapshot != null && documentSnapshot.exists()) {
                 val friendList = documentSnapshot.get("friendList") as? List<String> ?: emptyList()
@@ -135,19 +137,26 @@ class FriendsFragment : Fragment() {
                         .setMessage("You are already friends with ${friend.firstName} ${friend.lastName}")
                         .setPositiveButton("OK", null)
                         .show()
-                }
-                    else {
+                } else {
                     // Friend is not in the friend list, proceed to add the friend
                     val newFriendList = friendList.toMutableList()
                     newFriendList.add(friend.id)
                     userDocRef.update("friendList", newFriendList)
 
-                    // Show dialog to send friend request
-                    showFriendRequestDialog(friend)
+                    // Add yourself to the friend's friend list
+                    friendDocRef?.get()?.addOnSuccessListener { friendDocumentSnapshot ->
+                        if (friendDocumentSnapshot != null && friendDocumentSnapshot.exists()) {
+                            val friendFriendList = friendDocumentSnapshot.get("friendList") as? List<String> ?: emptyList()
+                            val newFriendFriendList = friendFriendList.toMutableList()
+                            currentUserId?.let { newFriendFriendList.add(it) }
+                            friendDocRef.update("friendList", newFriendFriendList)
+                        }
+                    }
                 }
             }
         }
     }
+
 
     private fun sendSMSDialog(friend: Friend) {
 
@@ -227,7 +236,7 @@ class FriendsFragment : Fragment() {
 
         return friendsList
     }
-    fun extractNumbersFromString(input: String): String {
+    private fun extractNumbersFromString(input: String): String {
         // Use regex to match only numeric digits
         val regex = Regex("[^0-9]")
         return input.replace(regex, "")

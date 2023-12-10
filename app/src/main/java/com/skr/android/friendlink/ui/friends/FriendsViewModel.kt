@@ -1,5 +1,11 @@
 package com.skr.android.friendlink.ui.friends
 
+import android.annotation.SuppressLint
+import android.content.pm.PackageManager
+import android.provider.ContactsContract
+import android.util.Log
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -16,21 +22,6 @@ class FriendsViewModel : ViewModel() {
     private lateinit var storage: FirebaseStorage
 
     val friends : StateFlow<List<String>> get() = _friends.asStateFlow()
-
-    init {
-        // return user friendList
-        val firestore = FirebaseFirestore.getInstance()
-        val currentUser = FirebaseAuth.getInstance().currentUser
-        val userId = currentUser?.uid
-
-        val userDocRef = userId?.let { firestore.collection("users").document(it) }
-        userDocRef?.get()?.addOnSuccessListener { documentSnapshot ->
-            if (documentSnapshot != null && documentSnapshot.exists()) {
-                val friendList = documentSnapshot.get("friendList") as? List<String> ?: emptyList()
-                _friends.value = friendList
-            }
-        }
-    }
 
 
     }
