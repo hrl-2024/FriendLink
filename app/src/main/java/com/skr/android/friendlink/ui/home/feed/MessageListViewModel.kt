@@ -1,5 +1,7 @@
 package com.skr.android.friendlink.ui.home.feed
 
+import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldPath
@@ -18,7 +20,7 @@ class MessageListViewModel : ViewModel() {
 
 
     // Function to fetch messages from Firestore
-    fun fetchMessages(forSent : Boolean = false) {
+    fun fetchMessages(forSent: Boolean = false) {
         val firestore = FirebaseFirestore.getInstance()
         val currentUser = FirebaseAuth.getInstance().currentUser
         val userId = currentUser?.uid
@@ -36,28 +38,37 @@ class MessageListViewModel : ViewModel() {
                     messageList = documentSnapshot.get("receivedList") as? List<String> ?: emptyList()
                 }
 
-                firestore.collection("messages")
-                    .whereIn(FieldPath.documentId(), messageList)
-                    .get()
-                    .addOnSuccessListener { querySnapshot ->
-                        val messages = mutableListOf<Message>()
+                if (messageList.isNotEmpty()) {
+                    firestore.collection("messages")
+                        .whereIn(FieldPath.documentId(), messageList)
+                        .get()
+                        .addOnSuccessListener { querySnapshot ->
+                            val messages = mutableListOf<Message>()
 
-                        for (document in querySnapshot.documents) {
-                            val message = Message(
-                                sender = document.getString("sender") ?: "",
-                                receiver = document.getString("receiver") ?: "",
-                                message = document.getString("message") ?: "",
-                                timestamp = document.getLong("timestamp") ?: 0L
-                            )
-                            messages.add(message)
+                            for (document in querySnapshot.documents) {
+                                val message = Message(
+                                    sender = document.getString("sender") ?: "",
+                                    receiver = document.getString("receiver") ?: "",
+                                    message = document.getString("message") ?: "",
+                                    timestamp = document.getLong("timestamp") ?: 0L
+                                )
+                                messages.add(message)
+                            }
+                            if (messages.isNotEmpty()) {
+                                _messages.value = messages
+                            } else {
+                                // No messages found
+                                _messages.value = emptyList()
+                            }
                         }
-
-                        // Update MutableStateFlow with fetched messages
-                        _messages.value = messages
-                    }
-                    .addOnFailureListener { e ->
-                        // Handle failure in fetching messages from Firestore
-                    }
+                        .addOnFailureListener { e ->
+                            Log.d("MessageListViewModel", "Error getting documents: ", e)
+                            // Handle failure in fetching messages from Firestore
+                        }
+                } else {
+                    // No messages found
+                    _messages.value = emptyList()
+                }
             }
         }
     }
