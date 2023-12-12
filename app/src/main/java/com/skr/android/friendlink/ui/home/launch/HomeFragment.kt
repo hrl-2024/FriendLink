@@ -36,8 +36,6 @@ class HomeFragment : Fragment() {
     private lateinit var firestore: FirebaseFirestore
     private lateinit var storage: FirebaseStorage
 
-    private lateinit var countDownTimer: CountDownTimer
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -52,6 +50,8 @@ class HomeFragment : Fragment() {
         firebaseAuth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
         storage = FirebaseStorage.getInstance()
+
+        var countDownTimer: CountDownTimer
 
         // Get current user
         val currentUser = firebaseAuth.currentUser
@@ -166,7 +166,7 @@ class HomeFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        countDownTimer.cancel()
+        // countDownTimer.cancel()
     }
 
 }
