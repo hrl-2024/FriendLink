@@ -64,7 +64,7 @@ class HomeFragment : Fragment() {
         Log.d(TAG, "User ID: $currentUserId")
 
 //        DELETE THIS LATER
-//        DailyMessageBoolean.resetBoolean(requireContext())
+        DailyMessageBoolean.resetBoolean(requireContext())
 
         val isAvailable = DailyMessageBoolean.isBooleanAvailable(requireContext())
         Log.d(TAG, "Is available: $isAvailable")
@@ -166,7 +166,10 @@ class HomeFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        countDownTimer.cancel()
+        if (this::countDownTimer.isInitialized) {
+            countDownTimer.cancel()
+        }
     }
+
 
 }
