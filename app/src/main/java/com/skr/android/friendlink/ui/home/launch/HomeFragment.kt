@@ -16,12 +16,14 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import coil.load
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.skr.android.friendlink.DailyMessageBoolean
 import com.skr.android.friendlink.R
 import com.skr.android.friendlink.databinding.FragmentHomeBinding
+import java.io.File
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
@@ -97,8 +99,17 @@ class HomeFragment : Fragment() {
 
         // set the temperature
         homeViewModel.weatherInfo.observe(viewLifecycleOwner) { weatherInfo ->
+            Log.d(TAG, "Weather info changed. New Weather info: $weatherInfo")
             val temp = weatherInfo.temp.toInt().toString() + "°C"
             binding.temperature.text = temp
+
+            // set weather icon
+            val weatherIcon = weatherInfo.icon
+            // Somehow, the weather icon is not showing up on the UI if coming from the internet
+            // val weatherIconUrl = "https://openweathermap.org/img/wn/$weatherIcon@4x.png"
+            // Log.d(TAG, "Weather icon url: $weatherIconUrl")
+            // binding.weatherIcon.load(weatherIconUrl)
+            setWeatherIcon(weatherIcon)
         }
 
         // get random friend id and bind the view accordingly
@@ -110,6 +121,21 @@ class HomeFragment : Fragment() {
         binding.dayMonth.text = currDate
 
         return root
+    }
+
+    private fun setWeatherIcon(weatherIcon: String) {
+        when (weatherIcon.dropLast(1)) {
+            "01" -> binding.weatherIcon.setImageResource(R.drawable.ic_weather_01)
+            "02" -> binding.weatherIcon.setImageResource(R.drawable.ic_weather_02)
+            "03" -> binding.weatherIcon.setImageResource(R.drawable.ic_weather_03)
+            "04" -> binding.weatherIcon.setImageResource(R.drawable.ic_weather_04)
+            "09" -> binding.weatherIcon.setImageResource(R.drawable.ic_weather_09)
+            "10" -> binding.weatherIcon.setImageResource(R.drawable.ic_weather_10)
+            "11" -> binding.weatherIcon.setImageResource(R.drawable.ic_weather_11)
+            "13" -> binding.weatherIcon.setImageResource(R.drawable.ic_weather_13)
+            "50" -> binding.weatherIcon.setImageResource(R.drawable.ic_weather_50)
+            else -> binding.weatherIcon.setImageResource(R.drawable.ic_weather_sun)
+        }
     }
 
     private fun getRandomFriend() {
