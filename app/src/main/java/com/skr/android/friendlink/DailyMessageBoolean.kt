@@ -26,8 +26,9 @@ object DailyMessageBoolean {
         Log.d(TAG, "Current date: $currentDate")
         Log.d(TAG, "Today in millis: $todayInMillis")
         Log.d(TAG, "Last used date: $lastUsedDate")
+        Log.d(TAG, "Is boolean used: $isBooleanUsed")
 
-        return if (!isBooleanUsed && lastUsedDate < todayInMillis) {
+        return if (!isBooleanUsed && lastUsedDate <= todayInMillis) {
             true // The boolean is available for use today
         } else {
             false // The boolean has already been used today or is not available
