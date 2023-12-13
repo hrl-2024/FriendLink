@@ -41,6 +41,8 @@ class HomeFragment : Fragment() {
     private lateinit var firestore: FirebaseFirestore
     private lateinit var storage: FirebaseStorage
 
+    private lateinit var countDownTimer: CountDownTimer
+
     // For current location
     private var currentLocation: Location? = null
     lateinit var locationManager: LocationManager
@@ -244,6 +246,7 @@ class HomeFragment : Fragment() {
                 null
             }
         } else {
+            askLocationPermission()
             getCurrentLocation()
         }
     }
