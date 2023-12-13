@@ -15,7 +15,7 @@ class FriendHolder (val binding: ListItemFriendBinding) : RecyclerView.ViewHolde
         val backgroundColor = if (!friend.registered) {
             binding.root.context.getColor(R.color.grey)
         } else {
-            binding.root.context.getColor(R.color.white)
+            binding.root.context.getColor(R.color.transparent)
         }
 
         binding.root.setBackgroundColor(backgroundColor)
