@@ -28,11 +28,7 @@ object DailyMessageBoolean {
         Log.d(TAG, "Last used date: $lastUsedDate")
         Log.d(TAG, "Is boolean used: $isBooleanUsed")
 
-        return if (!isBooleanUsed && lastUsedDate <= todayInMillis) {
-            true // The boolean is available for use today
-        } else {
-            false // The boolean has already been used today or is not available
-        }
+        return !isBooleanUsed && lastUsedDate <= todayInMillis
     }
 
     fun useBoolean(context: Context) {

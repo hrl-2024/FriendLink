@@ -95,6 +95,24 @@ class HomeFragment : Fragment() {
         val homeViewModel =
             ViewModelProvider(this, viewModelFactory).get(HomeViewModel::class.java)
 
+        // set the temperature
+        homeViewModel.weatherInfo.observe(viewLifecycleOwner) { weatherInfo ->
+            val temp = weatherInfo.temp.toInt().toString() + "°C"
+            binding.temperature.text = temp
+        }
+
+        // get random friend id and bind the view accordingly
+        getRandomFriend()
+
+        // Get the current date
+        val currDate = getCurrDate()
+        // Set the current date to the TextView using the binding
+        binding.dayMonth.text = currDate
+
+        return root
+    }
+
+    private fun getRandomFriend() {
         // Get current user
         val currentUser = firebaseAuth.currentUser
         val currentUserId = currentUser?.uid
@@ -105,13 +123,13 @@ class HomeFragment : Fragment() {
 
         Log.d(TAG, "User ID: $currentUserId")
 
-//        DELETE THIS LATER
+        //        DELETE THIS LATER
         DailyMessageBoolean.resetBoolean(requireContext())
 
         val isAvailable = DailyMessageBoolean.isBooleanAvailable(requireContext())
         Log.d(TAG, "Is available: $isAvailable")
 
-        if (isAvailable){
+        if (isAvailable) {
             // Get the friend list from the user document
             userDocRef?.get()?.addOnSuccessListener { document ->
                 if (document != null && document.exists()) {
@@ -131,17 +149,20 @@ class HomeFragment : Fragment() {
                             binding.revealFriendButton.isEnabled = false
                         } else {
                             var numNotifications = 3
-                            val notificationText = resources.getString(R.string.notification_text, numNotifications)
+                            val notificationText =
+                                resources.getString(R.string.notification_text, numNotifications)
                             binding.notificationText.text = notificationText
 
                             binding.revealFriendButton.setOnClickListener {
                                 DailyMessageBoolean.useBoolean(requireContext())
                                 findNavController().navigate(
-                                    HomeFragmentDirections.actionHomeToSend(randomFriendId, currentUserId.toString())
+                                    HomeFragmentDirections.actionHomeToSend(
+                                        randomFriendId,
+                                        currentUserId.toString()
+                                    )
                                 )
                             }
                         }
-
                     } else {
                         Log.d(TAG, "No friends found")
                     }
@@ -152,8 +173,7 @@ class HomeFragment : Fragment() {
                 Log.e(TAG, "Error finding user in firestore", e)
             }
 
-        }
-        else{
+        } else {
             binding.revealFriendButton.isEnabled = false
             val timeUntilNextDay = getTimeUntilNextDay()
             countDownTimer = object : CountDownTimer(timeUntilNextDay, 1000) {
@@ -175,13 +195,6 @@ class HomeFragment : Fragment() {
             binding.revealFriendButton.setTextColor(resources.getColor(R.color.white))
         }
         Log.d(TAG, "Random friend ID: $randomFriendId")
-
-        // Get the current date
-        val currDate = getCurrDate()
-        // Set the current date to the TextView using the binding
-        binding.dayMonth.text = currDate
-
-        return root
     }
 
     override fun onDestroyView() {
