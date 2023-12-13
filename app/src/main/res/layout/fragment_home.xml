@@ -29,10 +29,12 @@
             android:textSize="@dimen/aux_text" />
 
         <ImageView
-            android:id="@+id/weather"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_weather_sun" />
+            android:id="@+id/weatherIcon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_weather_sun"
+            android:scaleType="centerCrop"
+            android:layout_gravity="center" />
     </LinearLayout>
 
     <TextView
