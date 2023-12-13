@@ -1,13 +1,18 @@
 package com.skr.android.friendlink.ui.home.launch
 
 import android.annotation.SuppressLint
+import android.content.pm.PackageManager
 import android.icu.text.SimpleDateFormat
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -38,20 +43,57 @@ class HomeFragment : Fragment() {
 
     private lateinit var countDownTimer: CountDownTimer
 
+    // For current location
+    private var currentLocation: Location? = null
+    lateinit var locationManager: LocationManager
+
+    // For location by GPS
+    private var locationByGps: Location? = null
+    val gpsLocationListener: LocationListener = object : LocationListener {
+        override fun onLocationChanged(location: Location) {
+            locationByGps= location
+        }
+
+        override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
+        override fun onProviderEnabled(provider: String) {}
+        override fun onProviderDisabled(provider: String) {}
+    }
+    // For location by network
+    private var locationByNetwork: Location? = null
+    val networkLocationListener: LocationListener = object : LocationListener {
+        override fun onLocationChanged(location: Location) {
+            locationByNetwork= location
+        }
+
+        override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
+        override fun onProviderEnabled(provider: String) {}
+        override fun onProviderDisabled(provider: String) {}
+    }
+
+    @SuppressLint("MissingPermission")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
-
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         firebaseAuth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
         storage = FirebaseStorage.getInstance()
+
+        // Get current location
+        getCurrentLocation()
+        Log.d(TAG, "Current location: ${currentLocation?.latitude}, ${currentLocation?.longitude}")
+
+        // Create the view model
+        val lat = currentLocation?.latitude as Double
+        val lon = currentLocation?.longitude as Double
+
+        val viewModelFactory = HomeViewModelFactory(lat, lon)
+        val homeViewModel =
+            ViewModelProvider(this, viewModelFactory).get(HomeViewModel::class.java)
 
         // Get current user
         val currentUser = firebaseAuth.currentUser
@@ -171,5 +213,41 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun isLocationPermissionGranted(): Boolean {
+        return ActivityCompat.checkSelfPermission(
+            requireContext(),
+            android.Manifest.permission.ACCESS_FINE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED
+    }
 
+    private fun askLocationPermission(): Boolean {
+        ActivityCompat.requestPermissions(
+            requireActivity(),
+            arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
+            1
+        )
+        return isLocationPermissionGranted()
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun getCurrentLocation() {
+        if (isLocationPermissionGranted()) {
+            locationManager = requireActivity().getSystemService(android.content.Context.LOCATION_SERVICE) as LocationManager
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0f, gpsLocationListener)
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0f, networkLocationListener)
+            locationByGps = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+            locationByNetwork = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+
+            currentLocation = if (locationByGps != null) {
+                locationByGps
+            } else if (locationByNetwork != null) {
+                locationByNetwork
+            } else {
+                null
+            }
+        } else {
+            askLocationPermission()
+            getCurrentLocation()
+        }
+    }
 }
