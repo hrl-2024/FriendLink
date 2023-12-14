@@ -22,6 +22,4 @@ class FriendsViewModel : ViewModel() {
     private lateinit var storage: FirebaseStorage
 
     val friends : StateFlow<List<String>> get() = _friends.asStateFlow()
-
-
-    }
+}
