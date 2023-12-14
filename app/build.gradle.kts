@@ -20,6 +20,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField("String", "OPEN_WEATHER_API_KEY", "\"${project.property("OPEN_WEATHER_API_KEY")}\"")
+        buildConfigField("String", "NINJA_API_KEY", "\"${project.property("NINJA_API_KEY")}\"")
     }
 
     buildTypes {
