@@ -91,6 +91,13 @@ class SendFragment : Fragment() {
                                 .addOnFailureListener { e ->
                                     Log.e(TAG, "Error adding message to sent list", e)
                                 }
+                            userDocRef.update("lastMessageSent", System.currentTimeMillis())
+                                .addOnSuccessListener {
+                                    Log.d(TAG, "Last message sent updated")
+                                }
+                                .addOnFailureListener { e ->
+                                    Log.e(TAG, "Error updating last message sent", e)
+                                }
                         }
 
                         // Update the receivedList for the friend in a similar way
