@@ -86,7 +86,12 @@ class ProfileFragment : Fragment() {
 
         binding.logout.setOnClickListener {
             firebaseAuth.signOut()
-            findNavController().navigate(R.id.action_profile_to_intro) // to intro (to safe check if we are actually logged out)
+            val navController = findNavController()
+
+            // Clear the back stack (remove all fragments from the back stack)
+            navController.popBackStack(R.id.homeFragment, true)
+
+            navController.navigate(R.id.action_profile_to_intro) // to intro (to safe check if we are actually logged out)
         }
 
         messageListViewModel.fetchMessages(forSent = true)

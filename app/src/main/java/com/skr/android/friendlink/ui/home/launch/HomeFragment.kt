@@ -16,14 +16,11 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import coil.load
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
-import com.skr.android.friendlink.DailyMessageBoolean
 import com.skr.android.friendlink.R
 import com.skr.android.friendlink.databinding.FragmentHomeBinding
-import java.io.File
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
@@ -149,78 +146,98 @@ class HomeFragment : Fragment() {
 
         Log.d(TAG, "User ID: $currentUserId")
 
-        //        DELETE THIS LATER
-        DailyMessageBoolean.resetBoolean(requireContext())
-
-        val isAvailable = DailyMessageBoolean.isBooleanAvailable(requireContext())
-        Log.d(TAG, "Is available: $isAvailable")
-
-        if (isAvailable) {
-            // Get the friend list from the user document
-            userDocRef?.get()?.addOnSuccessListener { document ->
-                if (document != null && document.exists()) {
-                    // Retrieve the friend list field from the document data
-                    val friendList = document.get("friendList") as? List<String>
-                    Log.d(TAG, "Friend list: $friendList")
-
-                    // Ensure friendList is not null and contains at least one friend
-                    if (!friendList.isNullOrEmpty()) {
-                        // Choose a random friend from the list
-                        randomFriendId = friendList.random()
-
-                        if (randomFriendId == "") {
-                            val notificationText = resources.getString(R.string.no_friend_text)
-                            binding.notificationText.text = notificationText
-
-                            binding.revealFriendButton.isEnabled = false
-                        } else {
-                            var numNotifications = 3
-                            val notificationText =
-                                resources.getString(R.string.notification_text, numNotifications)
-                            binding.notificationText.text = notificationText
-
-                            binding.revealFriendButton.setOnClickListener {
-                                DailyMessageBoolean.useBoolean(requireContext())
-                                findNavController().navigate(
-                                    HomeFragmentDirections.actionHomeToSend(
-                                        randomFriendId,
-                                        currentUserId.toString()
-                                    )
-                                )
-                            }
-                        }
-                    } else {
-                        Log.d(TAG, "No friends found")
-                    }
-                } else {
-                    Log.d(TAG, "No user found")
-                }
-            }?.addOnFailureListener { e ->
-                Log.e(TAG, "Error finding user in firestore", e)
-            }
-
-        } else {
-            binding.revealFriendButton.isEnabled = false
-            val timeUntilNextDay = getTimeUntilNextDay()
-            countDownTimer = object : CountDownTimer(timeUntilNextDay, 1000) {
-                override fun onTick(millisUntilFinished: Long) {
-                    val hours = millisUntilFinished / (1000 * 60 * 60)
-                    val minutes = (millisUntilFinished % (1000 * 60 * 60)) / (1000 * 60)
-                    val seconds = ((millisUntilFinished % (1000 * 60 * 60)) % (1000 * 60)) / 1000
-
-                    val formattedTime =
-                        String.format("%02d:%02d:%02d", hours, minutes, seconds)
-                    binding.revealFriendButton.text = formattedTime
-                }
-
-                override fun onFinish() {
-                    binding.revealFriendButton.text = "00:00:00"
-                    // If needed, reset or perform actions when countdown finishes
-                }
-            }.start()
-            binding.revealFriendButton.setTextColor(resources.getColor(R.color.white))
+        val calendar = Calendar.getInstance().apply {
+            timeInMillis = System.currentTimeMillis()
+            set(Calendar.HOUR_OF_DAY, 0)
+            set(Calendar.MINUTE, 0)
+            set(Calendar.SECOND, 0)
+            set(Calendar.MILLISECOND, 0)
         }
-        Log.d(TAG, "Random friend ID: $randomFriendId")
+
+        val startOfDay = calendar.timeInMillis // Start of the current day
+
+        calendar.add(Calendar.DAY_OF_YEAR, 1)
+        calendar.add(Calendar.MILLISECOND, -1)
+
+        val endOfDay = calendar.timeInMillis
+
+        userDocRef?.get()?.addOnSuccessListener { document ->
+            if (document != null && document.exists()) {
+                val lastMessageSent = document.getLong("lastMessageSent")
+                Log.d(TAG, "Last message sent: $lastMessageSent")
+                val isMessageSent = lastMessageSent != null && lastMessageSent in startOfDay..endOfDay
+                Log.d(TAG, "Is message sent today? $isMessageSent")
+                if (!isMessageSent) {
+                    // Get the friend list from the user document
+                    userDocRef?.get()?.addOnSuccessListener { document ->
+                        if (document != null && document.exists()) {
+                            // Retrieve the friend list field from the document data
+                            val friendList = document.get("friendList") as? List<String>
+                            Log.d(TAG, "Friend list: $friendList")
+
+                            // Ensure friendList is not null and contains at least one friend
+                            if (!friendList.isNullOrEmpty()) {
+                                // Choose a random friend from the list
+                                randomFriendId = friendList.random()
+
+                                if (randomFriendId == "") {
+                                    val notificationText = resources.getString(R.string.no_friend_text)
+                                    binding.notificationText.text = notificationText
+
+                                    binding.revealFriendButton.isEnabled = false
+                                } else {
+                                    var numNotifications = 3
+                                    val notificationText =
+                                        resources.getString(R.string.notification_text, numNotifications)
+                                    binding.notificationText.text = notificationText
+
+                                    binding.revealFriendButton.setOnClickListener {
+                                        findNavController().navigate(
+                                            HomeFragmentDirections.actionHomeToSend(
+                                                randomFriendId,
+                                                currentUserId.toString()
+                                            )
+                                        )
+                                    }
+                                }
+                            } else {
+                                Log.d(TAG, "No friends found")
+                            }
+                        } else {
+                            Log.d(TAG, "No user found")
+                        }
+                    }?.addOnFailureListener { e ->
+                        Log.e(TAG, "Error finding user in firestore", e)
+                    }
+
+                } else {
+                    binding.revealFriendButton.isEnabled = false
+                    val timeUntilNextDay = getTimeUntilNextDay()
+                    countDownTimer = object : CountDownTimer(timeUntilNextDay, 1000) {
+                        override fun onTick(millisUntilFinished: Long) {
+                            val hours = millisUntilFinished / (1000 * 60 * 60)
+                            val minutes = (millisUntilFinished % (1000 * 60 * 60)) / (1000 * 60)
+                            val seconds = ((millisUntilFinished % (1000 * 60 * 60)) % (1000 * 60)) / 1000
+
+                            val formattedTime =
+                                String.format("%02d:%02d:%02d", hours, minutes, seconds)
+                            binding.revealFriendButton.text = formattedTime
+                        }
+
+                        override fun onFinish() {
+                            binding.revealFriendButton.isEnabled = true
+                        }
+                    }.start()
+                    binding.revealFriendButton.setTextColor(resources.getColor(R.color.white))
+                }
+                Log.d(TAG, "Random friend ID: $randomFriendId")
+            } else {
+                Log.d(TAG, "No such document")
+            }
+        }?.addOnFailureListener { exception ->
+            Log.d(TAG, "Could not get lastMessageSent", exception)
+        }
+
     }
 
     override fun onDestroyView() {

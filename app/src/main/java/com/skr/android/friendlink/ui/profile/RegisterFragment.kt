@@ -53,6 +53,7 @@ class RegisterFragment : Fragment() {
             val friendList = listOf<String>()
             val sentList = listOf<String>()
             val receivedList = listOf<String>()
+            val lastMessageSent = 0.toLong()
             val profilePicture = "https://firebasestorage.googleapis.com/v0/b/friendlink-62eae.appspot.com/o/profilepics%2Fdefault.jpeg?alt=media&token=ee8f0493-5a20-41c2-9d52-3a69f5f97a78"
 
             if (email.isEmpty() || password.isEmpty() || firstName.isEmpty() || lastName.isEmpty() || phoneNumber.isEmpty()) {
@@ -78,7 +79,8 @@ class RegisterFragment : Fragment() {
                                 "friendList" to friendList,
                                 "sentList" to sentList,
                                 "receivedList" to receivedList,
-                                "profilePicture" to profilePicture
+                                "profilePicture" to profilePicture,
+                                "lastMessageSent" to lastMessageSent
                             )
                             val documentReference: DocumentReference =
                                 firestore.collection("users").document(uid)
