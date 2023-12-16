@@ -30,6 +30,7 @@
     <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
+    <string name="welcome_text">WELCOME TO FRIENDLINK</string>
 
     <!--  Resource string name for register fragment  -->
     <string name="first_name">First Name</string>
