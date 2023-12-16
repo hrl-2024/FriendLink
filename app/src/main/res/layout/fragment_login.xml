@@ -15,10 +15,11 @@
         android:id="@+id/heartImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="36dp"
         android:src="@drawable/notification"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/loginContainer" />
 
     <LinearLayout
@@ -32,68 +33,53 @@
         android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@+id/heartImage">
 
-        <TextView
-            android:id="@+id/textViewEmail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/email"
-            android:textStyle="bold"
-            android:textSize="@dimen/normal_text"
-            android:textColor="@color/black" />
-
-        <EditText
-            android:id="@+id/email"
-            android:elevation="1dp"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="42dp"
-            android:layout_marginStart="2dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:inputType="textEmailAddress"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/rounded_edittext_background" />/>
-
-        <TextView
-            android:id="@+id/textViewPassword"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/password"
-            android:textStyle="bold"
-            android:textSize="@dimen/normal_text"
-            android:textColor="@color/black" />
+            android:layout_marginBottom="24dp"
+            android:hint="@string/email">
 
-        <EditText
-            android:id="@+id/password"
-            android:elevation="1dp"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/email"
+                android:inputType="textEmailAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/normal_text"
+                android:background="@drawable/rounded_edittext_background"
+                android:textColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/password_text_input"
             android:layout_width="match_parent"
-            android:layout_height="42dp"
-            android:layout_marginStart="2dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:inputType="textPassword"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            android:background="@drawable/rounded_edittext_background" />/>
+            android:layout_height="wrap_content"
+            android:hint="@string/password">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/password"
+                android:inputType="textPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/normal_text"
+                android:background="@drawable/rounded_edittext_background"
+                android:textColor="@color/black"/>
+        </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/login_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="48dp"
         android:layout_marginRight="48dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="24dp"
         android:layout_marginBottom="60dp"
         android:text="@string/login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginContainer" />
+        app:layout_constraintTop_toBottomOf="@+id/loginContainer"
+        app:backgroundTint="@color/color_primary"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
