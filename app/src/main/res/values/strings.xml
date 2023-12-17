@@ -40,7 +40,7 @@
     <string name="register_button">Register</string>
     <string name="already_have_account">Already have an account?</string>
     <string name="login_here">Login here</string>
-    <string name="createAccount">Create An Account</string>
+    <string name="createAccount">CREATE AN ACCOUNT</string>
 
     <!--  Resource string name for profile fragment  -->
     <string name="not_login">You have not login yet</string>

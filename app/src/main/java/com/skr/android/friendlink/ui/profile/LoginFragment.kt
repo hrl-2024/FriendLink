@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
@@ -51,7 +52,9 @@ class LoginFragment : Fragment() {
                 .addOnCompleteListener(requireActivity()) { task ->
                     if (task.isSuccessful) {
                         // Navigate to the MainActivity
-                        findNavController().navigate(R.id.action_login_to_profile)
+                        findNavController().navigate(
+                            R.id.action_login_to_profile,
+                        )
                     } else {
                         // If sign in fails, display a message to the user.
                         Snackbar.make(it, "Incorrect email or password.", Snackbar.LENGTH_SHORT).show()
