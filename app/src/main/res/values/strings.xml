@@ -15,8 +15,8 @@
 
     <string name="no_friend_text">You have no friends yet</string>
     <string name="send_message">Send</string>
-    <string name="type_message_hint">Type your message here...</string>
-    <string name="to">TO:</string>
+    <string name="type_message_hint">Type your message here</string>
+    <string name="to">TO</string>
     <string name="title_contact">CONTACT</string>
 
     <!--  Resource string name for Sent fragment  -->
@@ -28,8 +28,8 @@
     <!--  Resource string name for login fragment  -->
     <string name="email">Email</string>
     <string name="password">Password</string>
-    <string name="login">Login</string>
-    <string name="register">Register</string>
+    <string name="login">Sign In</string>
+    <string name="register">Sign Up</string>
     <string name="welcome_text">WELCOME TO FRIENDLINK</string>
 
     <!--  Resource string name for register fragment  -->

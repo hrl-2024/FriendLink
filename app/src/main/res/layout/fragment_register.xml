@@ -217,6 +217,7 @@
         android:layout_marginTop="24dp"
         android:layout_marginRight="48dp"
         android:text="@string/register"
+        android:textAllCaps="false"
         app:backgroundTint="@color/color_primary"
         app:layout_constraintBottom_toTopOf="@+id/yes_account"
         app:layout_constraintEnd_toEndOf="parent"
@@ -244,11 +245,12 @@
             android:id="@+id/login_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
             android:background="@android:color/transparent"
-            android:paddingLeft="0dp"
+            android:paddingLeft="8dp"
             android:paddingRight="0dp"
             android:text="@string/login"
+            android:textAlignment="viewStart"
+            android:textAllCaps="false"
             android:textColor="@color/color_primary" />
     </LinearLayout>
 
