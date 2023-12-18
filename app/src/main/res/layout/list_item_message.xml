@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/message_card"
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -11,13 +12,16 @@
         android:id="@+id/messageSenderPic"
         android:layout_width="49dp"
         android:layout_height="49dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        app:cardCornerRadius="50dp"
         android:scaleType="centerCrop"
         android:layout_gravity="center"
-        app:layout_constraintDimensionRatio="H,1:1"
-        app:layout_constraintStart_toStartOf="parent"
+        android:background="@color/color_primary"
+        android:src="@drawable/profilepic"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/messageSenderName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintDimensionRatio="H,1:1"
         app:srcCompat="@drawable/profilepic" />
 
     <TextView
@@ -25,9 +29,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:fontFamily="@font/poppins_medium"
         android:text="Sender Name"
         android:textColor="@color/black"
-        android:textSize="@dimen/subtitle"
+        android:textSize="@dimen/contact_name"
         app:layout_constraintBottom_toBottomOf="@+id/messageSenderPic"
         app:layout_constraintStart_toEndOf="@+id/messageSenderPic"
         app:layout_constraintTop_toTopOf="@+id/messageSenderPic" />
@@ -37,6 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
+        android:fontFamily="@font/poppins"
         android:text="12:18pm"
         android:textColor="@color/aux_text_color"
         app:layout_constraintEnd_toEndOf="parent"
@@ -46,11 +52,11 @@
         android:id="@+id/messageText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
+        android:fontFamily="@font/poppins"
         android:text="Message here"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/messageSenderName"
-        app:layout_constraintTop_toBottomOf="@+id/messageSenderPic" />
+        app:layout_constraintTop_toBottomOf="@+id/messageSenderName" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

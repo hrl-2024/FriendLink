@@ -155,7 +155,6 @@
             android:id="@+id/message_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/message_card"
             tools:listitem="@layout/list_item_message" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
