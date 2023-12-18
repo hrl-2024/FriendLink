@@ -41,7 +41,7 @@
             android:src="@drawable/ic_weather_sun"
             android:scaleType="centerCrop"
             android:layout_gravity="center"
-            android:background="@drawable/textview_border" />
+            android:background="@drawable/temp_filled_border" />
     </LinearLayout>
 
     <TextView
