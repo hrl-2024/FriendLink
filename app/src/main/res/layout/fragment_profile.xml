@@ -9,33 +9,39 @@
     tools:context=".ui.profile.ProfileFragment">
 
     <!-- Display the current user's profile picture-->
-    <ImageButton
-        android:id="@+id/profilePic"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:scaleType="centerCrop"
-        android:layout_gravity="center"
-        android:src="@drawable/profilepic"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <LinearLayout
         android:id="@+id/userInfoContainer"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginStart="24dp"
         android:orientation="vertical"
-        app:layout_constraintStart_toEndOf="@+id/profilePic"
+        android:layout_gravity="center"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <!--    Display the current user's full name-->
+        <!--  Profile Picture-->
+        <androidx.cardview.widget.CardView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="32dp"
+            app:cardCornerRadius="50dp">
+
+            <ImageView
+                android:id="@+id/profilePic"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/color_primary"
+                android:src="@drawable/profilepic"
+                app:layout_constraintDimensionRatio="H,1:1"
+                tools:src="@tools:sample/avatars" />
+        </androidx.cardview.widget.CardView>
+        <!-- User's Name-->
         <LinearLayout
             android:id="@+id/userNameContainer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:orientation="horizontal"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -44,10 +50,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:fontFamily="@font/poppins_bold"
                 android:text="@string/first_name"
-                android:textStyle="bold"
-                android:textSize="@dimen/normal_text"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:textSize="@dimen/subtitle"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/lastName"
@@ -55,23 +62,23 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                android:fontFamily="@font/poppins_bold"
                 android:text="@string/last_name"
-                android:textStyle="bold"
-                android:textSize="@dimen/normal_text"
                 android:textColor="@color/black"
+                android:textSize="@dimen/subtitle"
+                android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/firstName" />
         </LinearLayout>
-
-        <!--    Display the current user's phone number-->
-
+        <!--  User's Phone Number-->
         <TextView
             android:id="@+id/phoneNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="-2dp"
+            android:fontFamily="@font/poppins"
             android:text="Phone Number"
             android:textSize="@dimen/normal_text" />
-
     </LinearLayout>
 
     <Button
@@ -79,8 +86,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="logout"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/userInfoContainer" />
+        app:layout_constraintTop_toBottomOf="@+id/userInfoContainer"
+        app:layout_constraintStart_toStartOf="parent"
+        />
 
     <!--    Display the 2 buttons: Sent and Received-->
     <androidx.cardview.widget.CardView
