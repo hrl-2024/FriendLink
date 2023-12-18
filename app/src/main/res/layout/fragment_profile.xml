@@ -1,47 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="@color/color_primary"
     tools:context=".ui.profile.ProfileFragment">
 
-    <!-- Display the current user's profile picture-->
+    <!-- Arc-->
+    <ImageView
+        android:id="@+id/arc"
+        android:layout_width="wrap_content"
+        android:layout_height="53dp"
+        android:layout_marginTop="100dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/profile_vector"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Profile Picture CardView -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        app:cardCornerRadius="50dp"
+        android:layout_marginTop="48dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/profilePic"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_primary"
+            android:src="@drawable/profilepic"
+            app:layout_constraintDimensionRatio="H,1:1"
+            tools:src="@tools:sample/avatars" />
+    </androidx.cardview.widget.CardView>
+
     <LinearLayout
-        android:id="@+id/userInfoContainer"
+        android:id="@+id/topPortion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="-8dp"
+        android:background="@color/background"
         android:orientation="vertical"
-        android:layout_gravity="center"
-        android:gravity="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/arc">
 
-        <!--  Profile Picture-->
-        <androidx.cardview.widget.CardView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginTop="32dp"
-            app:cardCornerRadius="50dp">
-
-            <ImageView
-                android:id="@+id/profilePic"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/color_primary"
-                android:src="@drawable/profilepic"
-                app:layout_constraintDimensionRatio="H,1:1"
-                tools:src="@tools:sample/avatars" />
-        </androidx.cardview.widget.CardView>
-        <!-- User's Name-->
+        <!-- User's Name -->
         <LinearLayout
             android:id="@+id/userNameContainer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:background="@color/background"
             android:orientation="horizontal"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -69,7 +81,8 @@
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/firstName" />
         </LinearLayout>
-        <!--  User's Phone Number-->
+
+        <!-- User's Phone Number -->
         <TextView
             android:id="@+id/phoneNumber"
             android:layout_width="wrap_content"
@@ -79,108 +92,105 @@
             android:fontFamily="@font/poppins"
             android:text="Phone Number"
             android:textSize="@dimen/normal_text" />
-    </LinearLayout>
 
-    <Button
-        android:id="@+id/logout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="logout"
-        app:layout_constraintTop_toBottomOf="@+id/userInfoContainer"
-        app:layout_constraintStart_toStartOf="parent"
-        />
+        <!-- Logout Button -->
+        <Button
+            android:id="@+id/logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Logout" />
 
-    <!--    Display the 2 buttons: Sent and Received-->
-    <androidx.cardview.widget.CardView
-        android:id="@+id/buttonsCardView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginRight="24dp"
-        app:cardElevation="5dp"
-        app:cardCornerRadius="12dp"
-        app:layout_constraintTop_toBottomOf="@+id/userInfoContainer"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-<!--        <LinearLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:orientation="horizontal"-->
-<!--            android:gravity="center">-->
-
-<!--            <Button-->
-<!--                android:id="@+id/sentMessagesButton"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="50dp"-->
-<!--                android:layout_weight="1"-->
-<!--                android:layout_marginStart="8dp"-->
-<!--                android:backgroundTint="@color/color_primary"-->
-<!--                android:text="@string/sent"-->
-<!--                android:textColor="@color/white" />-->
-
-<!--            <Button-->
-<!--                android:id="@+id/receivedMessagesButton"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="50dp"-->
-<!--                android:layout_weight="1"-->
-<!--                android:layout_marginStart="8dp"-->
-<!--                android:layout_marginEnd="8dp"-->
-<!--                android:backgroundTint="@color/white"-->
-<!--                android:text="@string/received"-->
-<!--                android:textColor="@color/black"-->
-<!--                android:stateListAnimator="@null"/>-->
-
-<!--        </LinearLayout>-->
-
-        <RadioGroup
-            android:checkedButton="@+id/sendButton"
-            android:id="@+id/toggle"
+        <!--    Display the 2 buttons: Sent and Received-->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/buttonsCardView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/radio_group_outline"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginRight="24dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/topPortion">
 
-            <RadioButton
-                android:layout_marginTop="1dp"
-                android:layout_marginBottom="1dp"
-                android:layout_marginStart="1dp"
-                android:id="@+id/sendButton"
-                android:background="@drawable/toggle_widget_background"
-                android:layout_width="0dp"
+            <!--        <LinearLayout-->
+            <!--            android:layout_width="match_parent"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            android:orientation="horizontal"-->
+            <!--            android:gravity="center">-->
+
+            <!--            <Button-->
+            <!--                android:id="@+id/sentMessagesButton"-->
+            <!--                android:layout_width="0dp"-->
+            <!--                android:layout_height="50dp"-->
+            <!--                android:layout_weight="1"-->
+            <!--                android:layout_marginStart="8dp"-->
+            <!--                android:backgroundTint="@color/color_primary"-->
+            <!--                android:text="@string/sent"-->
+            <!--                android:textColor="@color/white" />-->
+
+            <!--            <Button-->
+            <!--                android:id="@+id/receivedMessagesButton"-->
+            <!--                android:layout_width="0dp"-->
+            <!--                android:layout_height="50dp"-->
+            <!--                android:layout_weight="1"-->
+            <!--                android:layout_marginStart="8dp"-->
+            <!--                android:layout_marginEnd="8dp"-->
+            <!--                android:backgroundTint="@color/white"-->
+            <!--                android:text="@string/received"-->
+            <!--                android:textColor="@color/black"-->
+            <!--                android:stateListAnimator="@null"/>-->
+
+            <!--        </LinearLayout>-->
+
+            <RadioGroup
+                android:id="@+id/toggle"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:button="@null"
-                android:gravity="center"
-                android:text="@string/send_message"
-                android:textColor="@color/black" />
+                android:background="@drawable/radio_group_outline"
+                android:checkedButton="@+id/sendButton"
+                android:orientation="horizontal">
 
-            <RadioButton
-                android:layout_marginEnd="1dp"
-                android:layout_marginTop="1dp"
-                android:layout_marginBottom="1dp"
-                android:id="@+id/receivedButton"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/toggle_widget_background"
-                android:button="@null"
-                android:gravity="center"
-                android:text="@string/received"
-                android:textColor="@color/black" />
-        </RadioGroup>
+                <RadioButton
+                    android:id="@+id/sendButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="1dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/toggle_widget_background"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="@string/send_message"
+                    android:textColor="@color/black" />
 
-    </androidx.cardview.widget.CardView>
+                <RadioButton
+                    android:id="@+id/receivedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginEnd="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/toggle_widget_background"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="@string/received"
+                    android:textColor="@color/black" />
+            </RadioGroup>
+
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonsCardView">
+        app:layout_constraintTop_toBottomOf="@+id/topPortion">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/message_recycler_view"
@@ -191,113 +201,119 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-<!--    &lt;!&ndash;    Display a sample text message from a friend &ndash;&gt;-->
-<!--    <androidx.cardview.widget.CardView-->
-<!--        android:id="@+id/textMessageCardView"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="30dp"-->
-<!--        android:layout_marginLeft="24dp"-->
-<!--        android:layout_marginRight="24dp"-->
-<!--        app:cardElevation="5dp"-->
-<!--        app:cardCornerRadius="12dp"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/buttonsCardView"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent">-->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp" />
 
-<!--        &lt;!&ndash; Display the sender's profile picture, first name, last name, and date of the message&ndash;&gt;-->
-<!--        <LinearLayout-->
-<!--            android:id="@+id/senderInfoContainer"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:orientation="horizontal"-->
-<!--            android:layout_marginStart="24dp"-->
-<!--            android:layout_marginEnd="24dp"-->
-<!--            android:layout_marginTop="10dp">-->
+    <!--    &lt;!&ndash;    Display a sample text message from a friend &ndash;&gt;-->
+    <!--    <androidx.cardview.widget.CardView-->
+    <!--        android:id="@+id/textMessageCardView"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="30dp"-->
+    <!--        android:layout_marginLeft="24dp"-->
+    <!--        android:layout_marginRight="24dp"-->
+    <!--        app:cardElevation="5dp"-->
+    <!--        app:cardCornerRadius="12dp"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/buttonsCardView"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent">-->
 
-<!--            <ImageButton-->
-<!--                android:id="@+id/senderPic"-->
-<!--                android:layout_width="50dp"-->
-<!--                android:layout_height="50dp"-->
-<!--                android:layout_marginTop="8dp"-->
-<!--                android:scaleType="fitXY"-->
-<!--                android:src="@drawable/profilepic"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="parent" />-->
+    <!--        &lt;!&ndash; Display the sender's profile picture, first name, last name, and date of the message&ndash;&gt;-->
+    <!--        <LinearLayout-->
+    <!--            android:id="@+id/senderInfoContainer"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:orientation="horizontal"-->
+    <!--            android:layout_marginStart="24dp"-->
+    <!--            android:layout_marginEnd="24dp"-->
+    <!--            android:layout_marginTop="10dp">-->
 
-<!--            <TextView-->
-<!--                android:id="@+id/senderFirstName"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="8dp"-->
-<!--                android:layout_marginTop="16dp"-->
-<!--                android:text="@string/first_name"-->
-<!--                android:textColor="@color/black"-->
-<!--                android:textSize="@dimen/normal_text"-->
-<!--                android:textStyle="bold"-->
-<!--                app:layout_constraintStart_toEndOf="@+id/profilePic"-->
-<!--                app:layout_constraintTop_toTopOf="@+id/profilePic" />-->
+    <!--            <ImageButton-->
+    <!--                android:id="@+id/senderPic"-->
+    <!--                android:layout_width="50dp"-->
+    <!--                android:layout_height="50dp"-->
+    <!--                android:layout_marginTop="8dp"-->
+    <!--                android:scaleType="fitXY"-->
+    <!--                android:src="@drawable/profilepic"-->
+    <!--                app:layout_constraintStart_toStartOf="parent"-->
+    <!--                app:layout_constraintTop_toTopOf="parent" />-->
 
-<!--            <TextView-->
-<!--                android:id="@+id/senderLastName"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="8dp"-->
-<!--                android:layout_marginTop="16dp"-->
-<!--                android:text="@string/last_name"-->
-<!--                android:textColor="@color/black"-->
-<!--                android:textSize="@dimen/normal_text"-->
-<!--                android:textStyle="bold"-->
-<!--                app:layout_constraintStart_toEndOf="@+id/firstName"-->
-<!--                app:layout_constraintTop_toTopOf="@+id/firstName" />-->
-<!--        </LinearLayout>-->
+    <!--            <TextView-->
+    <!--                android:id="@+id/senderFirstName"-->
+    <!--                android:layout_width="wrap_content"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:layout_marginStart="8dp"-->
+    <!--                android:layout_marginTop="16dp"-->
+    <!--                android:text="@string/first_name"-->
+    <!--                android:textColor="@color/black"-->
+    <!--                android:textSize="@dimen/normal_text"-->
+    <!--                android:textStyle="bold"-->
+    <!--                app:layout_constraintStart_toEndOf="@+id/profilePic"-->
+    <!--                app:layout_constraintTop_toTopOf="@+id/profilePic" />-->
 
-<!--        &lt;!&ndash; Display the text message &ndash;&gt;-->
-<!--        <LinearLayout-->
-<!--            android:id="@+id/textSentContainer"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:orientation="horizontal"-->
-<!--            android:layout_marginTop="80dp"-->
-<!--            android:layout_marginBottom="30dp">-->
+    <!--            <TextView-->
+    <!--                android:id="@+id/senderLastName"-->
+    <!--                android:layout_width="wrap_content"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:layout_marginStart="8dp"-->
+    <!--                android:layout_marginTop="16dp"-->
+    <!--                android:text="@string/last_name"-->
+    <!--                android:textColor="@color/black"-->
+    <!--                android:textSize="@dimen/normal_text"-->
+    <!--                android:textStyle="bold"-->
+    <!--                app:layout_constraintStart_toEndOf="@+id/firstName"-->
+    <!--                app:layout_constraintTop_toTopOf="@+id/firstName" />-->
+    <!--        </LinearLayout>-->
 
-<!--            <TextView-->
-<!--                android:id="@+id/textSent"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="24dp"-->
-<!--                android:layout_marginEnd="24dp"-->
-<!--                android:text="@string/placeholder_text"-->
-<!--                android:textSize="@dimen/normal_text"-->
-<!--                android:textColor="@color/black"-->
-<!--                android:lineSpacingExtra="5dp"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/senderInfoContainer"-->
-<!--                app:layout_constraintStart_toStartOf="parent" />-->
-<!--        </LinearLayout>-->
+    <!--        &lt;!&ndash; Display the text message &ndash;&gt;-->
+    <!--        <LinearLayout-->
+    <!--            android:id="@+id/textSentContainer"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:orientation="horizontal"-->
+    <!--            android:layout_marginTop="80dp"-->
+    <!--            android:layout_marginBottom="30dp">-->
 
-<!--        &lt;!&ndash; Display the date of the message &ndash;&gt;-->
-<!--        <LinearLayout-->
-<!--            android:id="@+id/dateContainer"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:orientation="horizontal"-->
-<!--            android:layout_marginTop="200dp"-->
-<!--            android:layout_marginBottom="30dp">-->
+    <!--            <TextView-->
+    <!--                android:id="@+id/textSent"-->
+    <!--                android:layout_width="wrap_content"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:layout_marginStart="24dp"-->
+    <!--                android:layout_marginEnd="24dp"-->
+    <!--                android:text="@string/placeholder_text"-->
+    <!--                android:textSize="@dimen/normal_text"-->
+    <!--                android:textColor="@color/black"-->
+    <!--                android:lineSpacingExtra="5dp"-->
+    <!--                app:layout_constraintTop_toBottomOf="@+id/senderInfoContainer"-->
+    <!--                app:layout_constraintStart_toStartOf="parent" />-->
+    <!--        </LinearLayout>-->
 
-<!--            <TextView-->
-<!--                android:id="@+id/date"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="24dp"-->
-<!--                android:text="@string/placeholder_date"-->
-<!--                android:textColor="@color/grey"-->
-<!--                android:textSize="@dimen/contact_number"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/textSentContainer" />-->
-<!--        </LinearLayout>-->
+    <!--        &lt;!&ndash; Display the date of the message &ndash;&gt;-->
+    <!--        <LinearLayout-->
+    <!--            android:id="@+id/dateContainer"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:orientation="horizontal"-->
+    <!--            android:layout_marginTop="200dp"-->
+    <!--            android:layout_marginBottom="30dp">-->
 
-<!--    </androidx.cardview.widget.CardView>-->
+    <!--            <TextView-->
+    <!--                android:id="@+id/date"-->
+    <!--                android:layout_width="wrap_content"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:layout_marginStart="24dp"-->
+    <!--                android:text="@string/placeholder_date"-->
+    <!--                android:textColor="@color/grey"-->
+    <!--                android:textSize="@dimen/contact_number"-->
+    <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--                app:layout_constraintStart_toStartOf="parent"-->
+    <!--                app:layout_constraintTop_toBottomOf="@+id/textSentContainer" />-->
+    <!--        </LinearLayout>-->
 
+    <!--    </androidx.cardview.widget.CardView>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
