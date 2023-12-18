@@ -13,6 +13,8 @@
     <color name="box_shadow">#FFF1EA</color>
     <color name="grey">#898989</color>
     <color name="color_primary">#FF8D4D</color>
+    <color name="color_secondary">#2047B9</color>
+    <color name="color_tertiary">#FFC9A2</color>
 
     <color name="transparent">#00000000</color>
 </resources>
