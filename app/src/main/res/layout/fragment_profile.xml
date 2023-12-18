@@ -15,8 +15,8 @@
         android:layout_marginTop="100dp"
         android:scaleType="centerCrop"
         android:src="@drawable/profile_vector"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Profile Picture CardView -->
     <androidx.cardview.widget.CardView
@@ -93,13 +93,6 @@
             android:text="Phone Number"
             android:textSize="@dimen/normal_text" />
 
-        <!-- Logout Button -->
-        <Button
-            android:id="@+id/logout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Logout" />
-
         <!--    Display the 2 buttons: Sent and Received-->
         <androidx.cardview.widget.CardView
             android:id="@+id/buttonsCardView"
@@ -113,36 +106,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/topPortion">
-
-            <!--        <LinearLayout-->
-            <!--            android:layout_width="match_parent"-->
-            <!--            android:layout_height="wrap_content"-->
-            <!--            android:orientation="horizontal"-->
-            <!--            android:gravity="center">-->
-
-            <!--            <Button-->
-            <!--                android:id="@+id/sentMessagesButton"-->
-            <!--                android:layout_width="0dp"-->
-            <!--                android:layout_height="50dp"-->
-            <!--                android:layout_weight="1"-->
-            <!--                android:layout_marginStart="8dp"-->
-            <!--                android:backgroundTint="@color/color_primary"-->
-            <!--                android:text="@string/sent"-->
-            <!--                android:textColor="@color/white" />-->
-
-            <!--            <Button-->
-            <!--                android:id="@+id/receivedMessagesButton"-->
-            <!--                android:layout_width="0dp"-->
-            <!--                android:layout_height="50dp"-->
-            <!--                android:layout_weight="1"-->
-            <!--                android:layout_marginStart="8dp"-->
-            <!--                android:layout_marginEnd="8dp"-->
-            <!--                android:backgroundTint="@color/white"-->
-            <!--                android:text="@string/received"-->
-            <!--                android:textColor="@color/black"-->
-            <!--                android:stateListAnimator="@null"/>-->
-
-            <!--        </LinearLayout>-->
 
             <RadioGroup
                 android:id="@+id/toggle"
@@ -163,7 +126,7 @@
                     android:background="@drawable/toggle_widget_background"
                     android:button="@null"
                     android:gravity="center"
-                    android:text="@string/send_message"
+                    android:text="@string/sent"
                     android:textColor="@color/black" />
 
                 <RadioButton
@@ -207,6 +170,19 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="20dp" />
+
+    <!-- Logout Button -->
+    <ImageView
+        android:id="@+id/logout"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="40dp"
+        android:layout_marginRight="24dp"
+        android:src="@drawable/logout_icon"
+        app:layout_constraintBottom_toTopOf="@+id/arc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!--    &lt;!&ndash;    Display a sample text message from a friend &ndash;&gt;-->
     <!--    <androidx.cardview.widget.CardView-->
