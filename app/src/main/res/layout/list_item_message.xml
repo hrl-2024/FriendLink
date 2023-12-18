@@ -1,17 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/message_card"
-    android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="20dp"
+    android:background="@drawable/message_card"
+    app:cardElevation="1dp"
+    android:layout_marginLeft="24dp"
+    android:layout_marginRight="24dp"
+    android:layout_marginBottom="16dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/messageSenderPic"
         android:layout_width="49dp"
         android:layout_height="49dp"
+        android:layout_marginStart="16dp"
         app:cardCornerRadius="50dp"
         android:scaleType="centerCrop"
         android:layout_gravity="center"
@@ -44,6 +53,7 @@
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/poppins"
         android:text="12:18pm"
+        android:textSize="@dimen/aux_text"
         android:textColor="@color/aux_text_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/messageSenderName" />
@@ -59,4 +69,6 @@
         app:layout_constraintStart_toStartOf="@+id/messageSenderName"
         app:layout_constraintTop_toBottomOf="@+id/messageSenderName" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

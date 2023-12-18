@@ -1,15 +1,19 @@
-<?xml version="1.0" encoding="utf-8"?>
+<!-- res/drawable/message_card.xml -->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- Shadow -->
     <item>
         <shape>
-            <solid android:color="@color/message_card_shadow" />
+            <solid android:color="@color/color_primary" />
             <corners android:radius="20dp" />
+            <padding
+                android:right="2dp"
+                android:bottom="2dp" />
         </shape>
     </item>
 
+
     <!-- Main Shape -->
-    <item android:top="2px" android:left="4px" android:right="4px" android:bottom="2px">
+    <item android:top="4px" android:left="4px" android:right="8px" android:bottom="8px">
         <shape>
             <solid android:color="@color/white" />
             <corners android:radius="20dp" />
