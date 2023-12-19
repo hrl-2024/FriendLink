@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FriendLink</string>
+    <string name="title_home">首页</string>
+    <string name="title_friends">好友</string>
+    <string name="title_profile">个人资料</string>
+    <string name="title_login">登录</string>
+    <string name="title_register">注册</string>
+
+    <!-- Resource string name for home fragment -->
+    <string name="number_of_friends">您有 %1$d 位好友</string>
+    <string name="notification_text">您收到了 %1$d 条消息！</string>
+    <string name="send_message_hint">发送您的消息以查看它们</string>
+    <string name="reveal_friend_button_text">显示今日好友</string>
+    <string name="reveal_question_button_text">显示今日问题</string>
+    <string name="no_friend_guide">立即前往好友页面添加一些好友！</string>
+    <string name="message_already_sent">您今天已发送一条消息！</string>
+    <string name="no_messages_text">您暂无新消息</string>
+
+    <string name="no_friend_text">您暂时没有好友</string>
+    <string name="send_message">发送</string>
+    <string name="type_message_hint">在此输入您的消息</string>
+    <string name="to">至</string>
+    <string name="title_contact">联系人</string>
+    <string name="prompt_message">今天有什么让您感到开心的事情？</string>
+
+    <!-- Resource string name for Sent fragment -->
+    <string name="message_sent">消息已发送！</string>
+    <string name="close">关闭</string>
+
+    <!-- Resource string name for login fragment -->
+    <string name="email">电子邮箱</string>
+    <string name="password">密码</string>
+    <string name="login">登录</string>
+    <string name="register">注册</string>
+    <string name="welcome_text">欢迎来到 FriendLink</string>
+
+    <!-- Resource string name for register fragment -->
+    <string name="first_name">名字</string>
+    <string name="last_name">姓氏</string>
+    <string name="confirm_password">确认密码</string>
+    <string name="phone_number">电话号码</string>
+    <string name="register_button">注册</string>
+    <string name="already_have_account">已有账号？</string>
+    <string name="login_here">在此登录</string>
+    <string name="createAccount">创建账号</string>
+
+    <!-- Resource string name for profile fragment -->
+    <string name="not_login">您尚未登录</string>
+    <string name="sent">已发送</string>
+    <string name="received">已接收</string>
+    <string name="placeholder_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
+    <string name="placeholder_date">12月1日</string>
+    <string name="placeholder_phone_number">123-456-789</string>
+    <string name="logout_button_description">这是一个按钮，用户可以用它退出他们的账号。</string>
+</resources>
