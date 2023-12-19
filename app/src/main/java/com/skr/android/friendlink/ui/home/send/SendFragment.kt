@@ -7,17 +7,35 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.aallam.openai.api.chat.ChatCompletion
+import com.aallam.openai.api.chat.ChatCompletionRequest
+import com.aallam.openai.api.chat.ChatMessage
+import com.aallam.openai.api.chat.ChatRole
+import com.aallam.openai.api.completion.CompletionRequest
+import com.aallam.openai.api.completion.TextCompletion
+import com.aallam.openai.api.http.Timeout
+import com.aallam.openai.api.model.Model
+import com.aallam.openai.api.model.ModelId
+import com.aallam.openai.client.OpenAI
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import com.skr.android.friendlink.BuildConfig
 import com.skr.android.friendlink.R
 import com.skr.android.friendlink.databinding.FragmentSendBinding
 import com.skr.android.friendlink.ui.home.feed.Message
+import kotlinx.coroutines.launch
+import kotlin.time.Duration.Companion.seconds
 
 private const val TAG = "SendFragment"
+
+private const val OPENAI_API_KEY = BuildConfig.OPENAI_API_KEY
 
 class SendFragment : Fragment() {
 
@@ -29,7 +47,7 @@ class SendFragment : Fragment() {
 
     private val args: SendFragmentArgs by navArgs()
 
-            @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -76,6 +94,30 @@ class SendFragment : Fragment() {
                 sendMessage(message, currentUserId, randomFriendId)
             }
             findNavController().navigate(R.id.action_send_to_loading)
+        }
+
+        // Create the prompt
+        val openAI = OpenAI(
+            OPENAI_API_KEY,
+            timeout = Timeout(socket = 3.seconds),
+        )
+
+        // Retrieve model
+        val completionRequest = CompletionRequest(
+            model = ModelId("davinci"),
+            prompt = "Give me a thoughtful prompt: ",
+            echo = false
+        )
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                Log.d(TAG, "Fetching prompt")
+                val completion: TextCompletion = openAI.completion(completionRequest)
+//                completion.choices.forEach {
+//                    it.message.content?.let { it1 -> Log.d(TAG, it1) }
+//                }
+                Log.d(TAG, "Completion: $completion")
+            }
         }
 
         return root

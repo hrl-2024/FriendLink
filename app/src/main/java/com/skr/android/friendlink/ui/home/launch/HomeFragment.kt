@@ -165,7 +165,8 @@ class HomeFragment : Fragment() {
             if (document != null && document.exists()) {
                 val lastMessageSent = document.getLong("lastMessageSent")
                 Log.d(TAG, "Last message sent: $lastMessageSent")
-                val isMessageSent = lastMessageSent != null && lastMessageSent in startOfDay..endOfDay
+//                val isMessageSent = lastMessageSent != null && lastMessageSent in startOfDay..endOfDay
+                val isMessageSent = false
                 Log.d(TAG, "Is message sent today? $isMessageSent")
                 if (!isMessageSent) {
                     // Get the friend list from the user document

@@ -21,6 +21,7 @@ android {
 
         buildConfigField("String", "OPEN_WEATHER_API_KEY", "\"${project.property("OPEN_WEATHER_API_KEY")}\"")
         buildConfigField("String", "NINJA_API_KEY", "\"${project.property("NINJA_API_KEY")}\"")
+        buildConfigField("String", "OPENAI_API_KEY", "\"${project.property("OPENAI_API_KEY")}\"")
     }
 
     buildTypes {
@@ -65,6 +66,10 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-scalars:2.9.0")
     implementation("com.squareup.moshi:moshi:1.14.0")
     implementation("com.squareup.moshi:moshi-kotlin:1.14.0")
+    implementation(platform("com.aallam.openai:openai-client-bom:3.6.2"))
+    implementation("com.aallam.openai:openai-client:3.6.2")
+    implementation("io.ktor:ktor-client-android:1.6.4")
+    runtimeOnly("io.ktor:ktor-client-okhttp")
     kapt("com.squareup.moshi:moshi-kotlin-codegen:1.14.0")
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
     implementation("io.coil-kt:coil:2.5.0")
