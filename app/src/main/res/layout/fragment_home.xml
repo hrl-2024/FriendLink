@@ -71,8 +71,8 @@
 
     <ImageView
         android:id="@+id/heartImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="250dp"
         android:layout_marginTop="24dp"
         android:src="@drawable/notification"
         app:layout_constraintEnd_toEndOf="parent"
@@ -98,11 +98,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="@string/send_message_hint"
         android:fontFamily="@font/alata"
+        android:text="@string/send_message_hint"
         android:textColor="@color/aux_text_color"
         android:textSize="@dimen/normal_text"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/notificationText" />
 

@@ -18,10 +18,12 @@
 
     <ImageView
         android:id="@+id/messageSenderPic"
-        android:layout_width="49dp"
-        android:layout_height="49dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/rounded_profile_pic"
+        android:clipToOutline="true"
         android:scaleType="centerCrop"
         android:layout_gravity="center"
         android:src="@drawable/profile_pic"
@@ -43,7 +45,7 @@
         android:textSize="@dimen/contact_name"
         app:layout_constraintBottom_toBottomOf="@+id/messageSenderPic"
         app:layout_constraintStart_toEndOf="@+id/messageSenderPic"
-        app:layout_constraintTop_toTopOf="@+id/messageSenderPic" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/messageTime"
@@ -62,6 +64,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
+        android:maxWidth="240dp"
         android:fontFamily="@font/poppins"
         android:text="Message here"
         app:layout_constraintBottom_toBottomOf="parent"

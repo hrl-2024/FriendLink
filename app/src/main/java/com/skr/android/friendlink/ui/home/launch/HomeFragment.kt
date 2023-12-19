@@ -15,14 +15,12 @@ import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.skr.android.friendlink.R
 import com.skr.android.friendlink.databinding.FragmentHomeBinding
-import kotlinx.coroutines.launch
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
@@ -174,8 +172,7 @@ class HomeFragment : Fragment() {
             if (document != null && document.exists()) {
                 val lastMessageSent = document.getLong("lastMessageSent")
                 Log.d(TAG, "Last message sent: $lastMessageSent")
-//                val isMessageSent = lastMessageSent != null && lastMessageSent in startOfDay..endOfDay
-                val isMessageSent = false
+                val isMessageSent = lastMessageSent != null && lastMessageSent in startOfDay..endOfDay
                 Log.d(TAG, "Is message sent today? $isMessageSent")
                 if (!isMessageSent) {
                     // Get the friend list from the user document
@@ -195,12 +192,9 @@ class HomeFragment : Fragment() {
                                     binding.notificationText.text = notificationText
 
                                     binding.revealFriendButton.isEnabled = false
-                                } else {
-                                    var numNotifications = 3
-                                    val notificationText =
-                                        resources.getString(R.string.notification_text, numNotifications)
-                                    binding.notificationText.text = notificationText
-
+                                }
+                                else {
+                                    showNotifications()
                                     binding.revealFriendButton.setOnClickListener {
                                         findNavController().navigate(
                                             HomeFragmentDirections.actionHomeToSend(
@@ -214,9 +208,6 @@ class HomeFragment : Fragment() {
                                 Log.d(TAG, "No friends found")
                                 val notificationText = resources.getString(R.string.no_friend_text)
                                 binding.notificationText.text = notificationText
-                                binding.guideText.text = resources.getString(R.string.no_friend_guide)
-
-                                binding.revealFriendButton.visibility = View.GONE
                             }
                         } else {
                             Log.d(TAG, "No user found")
@@ -226,6 +217,11 @@ class HomeFragment : Fragment() {
                     }
 
                 } else {
+                    val notificationText = resources.getString(R.string.message_already_sent)
+                    binding.notificationText.text = notificationText
+                    binding.guideText.visibility = View.GONE
+                    binding.heartImage.setImageDrawable(resources.getDrawable(R.drawable.hourglass, null))
+
                     binding.revealFriendButton.isEnabled = false
                     val timeUntilNextDay = getTimeUntilNextDay()
                     countDownTimer = object : CountDownTimer(timeUntilNextDay, 1000) {
@@ -251,6 +247,66 @@ class HomeFragment : Fragment() {
             }
         }?.addOnFailureListener { exception ->
             Log.d(TAG, "Could not get lastMessageSent", exception)
+        }
+
+    }
+
+    private fun showNotifications(){
+        // Get current user
+        val currentUser = firebaseAuth.currentUser
+        val currentUserId = currentUser?.uid
+
+        val userDocRef = currentUserId?.let { firestore.collection("users").document(it) }
+
+        userDocRef?.get()?.addOnSuccessListener { document ->
+            if (document != null && document.exists()) {
+                val receivedList = document.get("receivedList") as? List<String>
+                // only get count of messages received today
+                val calendar = Calendar.getInstance().apply {
+                    timeInMillis = System.currentTimeMillis()
+                    set(Calendar.HOUR_OF_DAY, 0)
+                    set(Calendar.MINUTE, 0)
+                    set(Calendar.SECOND, 0)
+                    set(Calendar.MILLISECOND, 0)
+                }
+
+                val startOfDay = calendar.timeInMillis // Start of the current day
+
+                calendar.add(Calendar.DAY_OF_YEAR, 1)
+                calendar.add(Calendar.MILLISECOND, -1)
+
+                val endOfDay = calendar.timeInMillis
+
+                Log.d(TAG, "Received list: $receivedList")
+
+                if (!receivedList.isNullOrEmpty()) {
+                    var numNotifications = 0
+
+                    for (messageId in receivedList) {
+                        val messageDocRef = firestore.collection("messages").document(messageId)
+                        messageDocRef.get().addOnSuccessListener { document ->
+                            if (document != null && document.exists()) {
+                                val timestamp = document.getLong("timestamp")
+                                Log.d(TAG, "Timestamp: $timestamp")
+                                Log.d(TAG, "Start of day: $startOfDay")
+                                Log.d(TAG, "End of day: $endOfDay")
+                                if (timestamp != null && timestamp in startOfDay..endOfDay) {
+                                    numNotifications++
+                                }
+                                Log.d(TAG, "Number of notifications: $numNotifications")
+                                val notificationText = resources.getString(R.string.notification_text, numNotifications)
+                                binding.notificationText.text = notificationText
+                            }
+                        }.addOnFailureListener {
+                            // Handle failure if needed
+                        }
+                    }
+                } else {
+                    val notificationText = resources.getString(R.string.no_messages_text)
+                    binding.notificationText.text = notificationText
+                }
+
+            }
         }
 
     }

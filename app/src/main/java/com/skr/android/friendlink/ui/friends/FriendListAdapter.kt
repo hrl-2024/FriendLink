@@ -2,13 +2,25 @@ package com.skr.android.friendlink.ui.friends
 
 import android.graphics.ColorMatrix
 import android.graphics.ColorMatrixColorFilter
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 import com.skr.android.friendlink.R
 import com.skr.android.friendlink.databinding.ListItemFriendBinding
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class FriendHolder (val binding: ListItemFriendBinding) : RecyclerView.ViewHolder(binding.root) {
+    private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var firestore: FirebaseFirestore
+    private lateinit var storage: FirebaseStorage
+
     fun bind(friend: Friend, clickListener: (Friend) -> Unit) {
         val name = friend.firstName + " " + friend.lastName
         binding.friendName.text = name
@@ -25,8 +37,13 @@ class FriendHolder (val binding: ListItemFriendBinding) : RecyclerView.ViewHolde
             val matrix = ColorMatrix()
             matrix.setSaturation(0f)
             val filter = ColorMatrixColorFilter(matrix)
+            binding.profileImg.setImageDrawable(binding.root.context.getDrawable(R.drawable.profile_pic))
             binding.profileImg.colorFilter = filter
         } else {
+            Log.d("FriendListAdapter", "friend.profilePicture: ${friend.profilePicture}")
+            Glide.with(binding.root.context)
+                .load(friend.profilePicture)
+                .into(binding.profileImg)
             binding.profileImg.colorFilter = null
         }
 
