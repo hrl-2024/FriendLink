@@ -31,7 +31,13 @@ class HomeViewModel(private val lat: Double, private val lon: Double) : ViewMode
                 _weatherInfo.value = weather
                 Log.d(TAG, "Weather received: $weather")
 
-                val question = QuestionRepository().fetchQuestion()
+                var question = QuestionRepository().fetchQuestion()
+
+                // parse question so it render "&quot;" as " and "&amp;" as & and &#039; as '
+                question = question.replace("&quot;", "\"")
+                question = question.replace("&amp;", "&")
+                question = question.replace("&#039;", "'")
+
                 _question.value = question
                 Log.d(TAG, "Question received: $question")
             } catch (ex: Exception) {
