@@ -13,7 +13,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="32dp"
-        android:text="@string/title_contact"
+        android:text="@string/title_my_friends"
+        android:fontFamily="@font/poppins"
         android:textColor="@color/normal_text_color"
         android:textSize="@dimen/title"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,10 +47,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchCardView"
+        app:layout_constraintVertical_bias="0.0"
         tools:listitem="@layout/list_item_friend" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

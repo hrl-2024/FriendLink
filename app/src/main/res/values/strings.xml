@@ -17,7 +17,7 @@
     <string name="send_message">Send</string>
     <string name="type_message_hint">Type your message here</string>
     <string name="to">TO</string>
-    <string name="title_contact">CONTACT</string>
+    <string name="title_my_friends">My Friends</string>
 
     <!--  Resource string name for Sent fragment  -->
     <string name="message_sent">Message Sent!</string>
