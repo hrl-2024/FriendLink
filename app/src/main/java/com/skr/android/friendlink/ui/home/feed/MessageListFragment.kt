@@ -1,6 +1,7 @@
 package com.skr.android.friendlink.ui.home.feed
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,13 +42,18 @@ class MessageListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         messageListViewModel.fetchMessages()
 
+
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 messageListViewModel.messages.collect { messages ->
-                        // If messages exist, display the RecyclerView with the adapter
+                    // If no messages exist, display the empty view
+                    if (messages.isEmpty()) {
+                        Log.d("MessageListFragment", "messages is empty")
+                    } else {
                         binding.messageRecyclerView.adapter = MessageListAdapter(requireContext(), messages)
                 }
-            }
+        }
+    }
         }
     }
 
