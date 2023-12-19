@@ -184,6 +184,8 @@ class FriendsFragment : Fragment() {
                 arrayOf(android.Manifest.permission.READ_CONTACTS),
                 1
             )
+
+            return emptyList()
         }
 
         val friendsList = mutableListOf<Friend>()
