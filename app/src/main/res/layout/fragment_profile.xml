@@ -94,6 +94,11 @@
             android:textSize="@dimen/normal_text" />
 
         <!--    Display the 2 buttons: Sent and Received-->
+        <FrameLayout
+            android:id="@+id/transitionContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
         <androidx.cardview.widget.CardView
             android:id="@+id/buttonsCardView"
             android:layout_width="match_parent"
@@ -142,6 +147,7 @@
             </RadioGroup>
 
         </androidx.cardview.widget.CardView>
+        </FrameLayout>
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout

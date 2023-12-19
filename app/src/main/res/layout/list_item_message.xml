@@ -21,17 +21,16 @@
         android:layout_width="49dp"
         android:layout_height="49dp"
         android:layout_marginStart="16dp"
-        app:cardCornerRadius="50dp"
+        android:background="@drawable/rounded_profile_pic"
         android:scaleType="centerCrop"
         android:layout_gravity="center"
-        android:background="@color/color_primary"
-        android:src="@drawable/profilepic"
+        android:src="@drawable/profile_pic"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/messageSenderName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintDimensionRatio="H,1:1"
-        app:srcCompat="@drawable/profilepic" />
+        app:srcCompat="@drawable/profile_pic" />
 
     <TextView
         android:id="@+id/messageSenderName"
