@@ -5,6 +5,7 @@
     <dimen name="title">36sp</dimen>
     <dimen name="subtitle">22sp</dimen>
     <dimen name="normal_text">18sp</dimen>
+    <dimen name="quote_text">14sp</dimen>
     <dimen name="prompt">26sp</dimen>
     <dimen name="aux_text">12sp</dimen>
     <dimen name="contact_name">18sp</dimen>
