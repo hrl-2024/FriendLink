@@ -15,12 +15,14 @@ import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.skr.android.friendlink.R
 import com.skr.android.friendlink.databinding.FragmentHomeBinding
+import kotlinx.coroutines.launch
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
@@ -117,6 +119,13 @@ class HomeFragment : Fragment() {
         // Set the current date to the TextView using the binding
         binding.dayMonth.text = currDate
 
+        binding.revealQuestionButton.setOnClickListener {
+            binding.questionText.text = homeViewModel.question.value
+            Log.d(TAG, "Question: ${homeViewModel.question.value}")
+            binding.questionText.visibility = View.VISIBLE
+            binding.revealQuestionButton.visibility = View.GONE
+        }
+
         return root
     }
 
@@ -165,7 +174,8 @@ class HomeFragment : Fragment() {
             if (document != null && document.exists()) {
                 val lastMessageSent = document.getLong("lastMessageSent")
                 Log.d(TAG, "Last message sent: $lastMessageSent")
-                val isMessageSent = lastMessageSent != null && lastMessageSent in startOfDay..endOfDay
+//                val isMessageSent = lastMessageSent != null && lastMessageSent in startOfDay..endOfDay
+                val isMessageSent = false
                 Log.d(TAG, "Is message sent today? $isMessageSent")
                 if (!isMessageSent) {
                     // Get the friend list from the user document

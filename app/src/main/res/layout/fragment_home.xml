@@ -108,20 +108,50 @@
 
     <Button
         android:id="@+id/revealFriendButton"
-        android:layout_marginLeft="48dp"
-        android:layout_marginRight="48dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="48dp"
         android:layout_marginTop="32dp"
+        android:layout_marginRight="48dp"
         android:backgroundTint="@color/black"
         android:fontFamily="@font/alata"
-        android:textSize="@dimen/normal_text"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
         android:text="@string/reveal_friend_button_text"
         android:textAllCaps="false"
+        android:textSize="@dimen/normal_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guideText" />
+
+    <Button
+        android:id="@+id/revealQuestionButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="48dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="48dp"
+        android:backgroundTint="@color/black"
+        android:fontFamily="@font/alata"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:text="@string/reveal_question_button_text"
+        android:textAllCaps="false"
+        android:textSize="@dimen/normal_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/revealFriendButton" />
+
+    <TextView
+        android:id="@+id/questionText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Question of the day"
+        android:visibility="gone"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/revealFriendButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

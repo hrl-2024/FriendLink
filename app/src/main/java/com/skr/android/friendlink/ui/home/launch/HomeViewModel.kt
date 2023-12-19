@@ -20,6 +20,9 @@ class HomeViewModel(private val lat: Double, private val lon: Double) : ViewMode
     private val _weatherInfo = MutableLiveData<WeatherInfo>()
     val weatherInfo: LiveData<WeatherInfo> get() = _weatherInfo
 
+    private val _question = MutableLiveData<String>()
+    val question: LiveData<String> get() = _question
+
     init {
         // default location is Mountain View, CA
         viewModelScope.launch {
@@ -27,8 +30,12 @@ class HomeViewModel(private val lat: Double, private val lon: Double) : ViewMode
                 val weather = WeatherRepository().fetchWeather(lat, lon)
                 _weatherInfo.value = weather
                 Log.d(TAG, "Weather received: $weather")
+
+                val question = QuestionRepository().fetchQuestion()
+                _question.value = question
+                Log.d(TAG, "Question received: $question")
             } catch (ex: Exception) {
-                Log.e(TAG, "Failed to fetch weather", ex)
+                Log.e(TAG, "Failed to fetch weather/question", ex)
             }
         }
     }
