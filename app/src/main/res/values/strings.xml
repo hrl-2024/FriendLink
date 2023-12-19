@@ -13,7 +13,6 @@
     <string name="reveal_friend_button_text">Reveal friend of the day</string>
     <string name="reveal_question_button_text">Reveal question of the day</string>
     <string name="no_friend_guide">Go to Friends to add some friends now!</string>
-    <string name="message_already_sent">You have already sent a message today!</string>
     <string name="message_already_sent">You have sent a message today!</string>
     <string name="no_messages_text">You have received no new messages</string>
 
