@@ -19,6 +19,7 @@
     <string name="type_message_hint">Type your message here</string>
     <string name="to">TO</string>
     <string name="title_contact">CONTACT</string>
+    <string name="prompt_message">What is something that made you happy today?</string>
 
     <!--  Resource string name for Sent fragment  -->
     <string name="message_sent">Message Sent!</string>

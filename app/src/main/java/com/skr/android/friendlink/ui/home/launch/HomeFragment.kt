@@ -198,8 +198,11 @@ class HomeFragment : Fragment() {
                                         )
                                     }
                                 }
-                            } else {
+                            }
+                            else {
                                 Log.d(TAG, "No friends found")
+                                val notificationText = resources.getString(R.string.no_friend_text)
+                                binding.notificationText.text = notificationText
                             }
                         } else {
                             Log.d(TAG, "No user found")

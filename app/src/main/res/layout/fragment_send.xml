@@ -73,7 +73,7 @@
             android:fontFamily="@font/poppins_bold"
             android:gravity="start"
             android:paddingVertical="20dp"
-            android:text="What is something that made you happy today?"
+            android:text="@string/prompt_message"
             android:textColor="@color/color_primary"
             android:textSize="@dimen/prompt"
             app:layout_constraintEnd_toEndOf="parent"
