@@ -28,6 +28,9 @@ class MainActivity : AppCompatActivity() {
 
         // Hide the bottom navigation bar when user is at Login or Register fragments
         navController.addOnDestinationChangedListener { _, destination, _ ->
+            if (destination.id == R.id.homeFragment || destination.id == R.id.messageListFragment) {
+                navController.popBackStack(R.id.homeFragment, false)
+            }
             if (destination.id == R.id.navigation_login || destination.id == R.id.navigation_register) {
                 navView.visibility = View.GONE
             } else {

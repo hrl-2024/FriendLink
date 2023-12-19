@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
@@ -74,52 +73,60 @@ class SendFragment : Fragment() {
             )
 
             if (message != null) {
-                firestore.collection("messages")
-                    .add(message)
-                    // Adding to sent list
-                    .addOnSuccessListener { documentReference ->
-                        Log.d(TAG, "Message sent successfully with ID: ${documentReference.id}")
-                        val messageId = documentReference.id // Assuming you have the message ID
-
-                        // Update the sentList for the current user by adding the new message ID to the existing list
-                        currentUserId.let { uid ->
-                            val userDocRef = firestore.collection("users").document(uid)
-                            userDocRef.update("sentList", FieldValue.arrayUnion(messageId))
-                                .addOnSuccessListener {
-                                    Log.d(TAG, "Message added to sent list")
-                                }
-                                .addOnFailureListener { e ->
-                                    Log.e(TAG, "Error adding message to sent list", e)
-                                }
-                            userDocRef.update("lastMessageSent", System.currentTimeMillis())
-                                .addOnSuccessListener {
-                                    Log.d(TAG, "Last message sent updated")
-                                }
-                                .addOnFailureListener { e ->
-                                    Log.e(TAG, "Error updating last message sent", e)
-                                }
-                        }
-
-                        // Update the receivedList for the friend in a similar way
-                        randomFriendId.let { friendId ->
-                            val friendDocRef = firestore.collection("users").document(friendId)
-                            friendDocRef.update("receivedList", FieldValue.arrayUnion(messageId))
-                                .addOnSuccessListener {
-                                    Log.d(TAG, "Message added to received list")
-                                }
-                                .addOnFailureListener { e ->
-                                    Log.e(TAG, "Error adding message to received list", e)
-                                }
-                        }
-                    }
-                    .addOnFailureListener { e ->
-                        Log.e(TAG, "Error sending message", e)
-                    }
+                sendMessage(message, currentUserId, randomFriendId)
             }
-            findNavController().navigate(R.id.action_send_to_sent)
+            findNavController().navigate(R.id.action_send_to_loading)
         }
 
         return root
+    }
+
+    private fun sendMessage(
+        message: Message,
+        currentUserId: String,
+        toFriendId: String
+    ) {
+        firestore.collection("messages")
+            .add(message)
+            // Adding to sent list
+            .addOnSuccessListener { documentReference ->
+                Log.d(TAG, "Message sent successfully with ID: ${documentReference.id}")
+                val messageId = documentReference.id // Assuming you have the message ID
+
+                // Update the sentList for the current user by adding the new message ID to the existing list
+                currentUserId.let { uid ->
+                    val userDocRef = firestore.collection("users").document(uid)
+                    userDocRef.update("sentList", FieldValue.arrayUnion(messageId))
+                        .addOnSuccessListener {
+                            Log.d(TAG, "Message added to sent list")
+                        }
+                        .addOnFailureListener { e ->
+                            Log.e(TAG, "Error adding message to sent list", e)
+                        }
+                    userDocRef.update("lastMessageSent", System.currentTimeMillis())
+                        .addOnSuccessListener {
+                            Log.d(TAG, "Last message sent updated")
+                        }
+                        .addOnFailureListener { e ->
+                            Log.e(TAG, "Error updating last message sent", e)
+                        }
+                }
+
+                // Update the receivedList for the friend in a similar way
+                toFriendId.let { friendId ->
+                    val friendDocRef = firestore.collection("users").document(friendId)
+                    friendDocRef.update("receivedList", FieldValue.arrayUnion(messageId))
+                        .addOnSuccessListener {
+                            Log.d(TAG, "Message added to received list")
+                        }
+                        .addOnFailureListener { e ->
+                            Log.e(TAG, "Error adding message to received list", e)
+                        }
+                }
+            }
+            .addOnFailureListener { e ->
+                Log.e(TAG, "Error sending message", e)
+            }
     }
 
     override fun onDestroyView() {

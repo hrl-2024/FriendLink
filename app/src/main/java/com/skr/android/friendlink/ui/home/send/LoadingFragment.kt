@@ -11,10 +11,11 @@ import com.skr.android.friendlink.R
 import com.skr.android.friendlink.databinding.FragmentSentBinding
 import android.os.Handler
 import android.os.Looper
+import com.skr.android.friendlink.databinding.FragmentLoadingBinding
 
 class LoadingFragment : Fragment() {
 
-    private var _binding: FragmentSentBinding? = null
+    private var _binding: FragmentLoadingBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -22,12 +23,12 @@ class LoadingFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentSentBinding.inflate(inflater, container, false)
+        _binding = FragmentLoadingBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         Handler(Looper.getMainLooper()).postDelayed({
             // Navigate to the 'Message Sent' page after 3 seconds
-            findNavController().navigate(R.id.action_send_to_sent)
+            findNavController().navigate(R.id.action_loading_to_sent)
         }, 3000)
 
         return root

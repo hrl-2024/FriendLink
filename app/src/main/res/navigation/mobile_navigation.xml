@@ -36,14 +36,14 @@
         android:name="com.skr.android.friendlink.ui.home.send.SendFragment"
         android:label="SendFragment"
         tools:layout="@layout/fragment_send" >
-        <action
-            android:id="@+id/action_send_to_sent"
-            app:destination="@id/sentFragment" />
         <argument
             android:name="randomFriendId"
             app:argType="string" />
         <argument android:name="currentUserId"
-            app:argType="string" />/>
+            app:argType="string" />
+        <action
+            android:id="@+id/action_send_to_loading"
+            app:destination="@id/loadingFragment" />
     </fragment>
 
     <fragment
@@ -102,5 +102,14 @@
         <action
             android:id="@+id/action_sent_to_messageList"
             app:destination="@id/messageListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loadingFragment"
+        android:name="com.skr.android.friendlink.ui.home.send.LoadingFragment"
+        android:label="LoadingFragment"
+        tools:layout="@layout/fragment_loading">
+        <action
+            android:id="@+id/action_loading_to_sent"
+            app:destination="@id/sentFragment" />
     </fragment>
 </navigation>
