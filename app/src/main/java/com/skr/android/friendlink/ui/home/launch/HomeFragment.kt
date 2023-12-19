@@ -202,6 +202,11 @@ class HomeFragment : Fragment() {
                                 }
                             } else {
                                 Log.d(TAG, "No friends found")
+                                val notificationText = resources.getString(R.string.no_friend_text)
+                                binding.notificationText.text = notificationText
+                                binding.guideText.text = resources.getString(R.string.no_friend_guide)
+
+                                binding.revealFriendButton.visibility = View.GONE
                             }
                         } else {
                             Log.d(TAG, "No user found")
