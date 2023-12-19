@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FriendLink</string>
+    <string name="title_home">Inicio</string>
+    <string name="title_friends">Amigos</string>
+    <string name="title_profile">Perfil</string>
+    <string name="title_login">Iniciar sesión</string>
+    <string name="title_register">Registrarse</string>
+
+    <!--  Resource string name for home fragment  -->
+    <string name="number_of_friends">Tienes %1$d amigos</string>
+    <string name="notification_text">¡Has recibido %1$d mensajes!</string>
+    <string name="send_message_hint">Envía el tuyo ahora para verlos</string>
+    <string name="reveal_friend_button_text">Mostrar amigo del día</string>
+    <string name="reveal_question_button_text">Mostrar pregunta del día</string>
+    <string name="no_friend_guide">¡Ve a Amigos para agregar algunos amigos ahora!</string>
+    <string name="message_already_sent">¡Has enviado un mensaje hoy!</string>
+    <string name="no_messages_text">No has recibido mensajes nuevos</string>
+
+    <string name="no_friend_text">Aún no tienes amigos</string>
+    <string name="send_message">Enviar</string>
+    <string name="type_message_hint">Escribe tu mensaje aquí</string>
+    <string name="to">PARA</string>
+    <string name="title_contact">CONTACTO</string>
+    <string name="prompt_message">¿Algo que te haya hecho feliz hoy?</string>
+
+    <!--  Resource string name for Sent fragment  -->
+    <string name="message_sent">¡Mensaje enviado!</string>
+    <string name="close">Cerrar</string>
+
+    <!--  Resource string name for friends fragment  -->
+
+    <!--  Resource string name for login fragment  -->
+    <string name="email">Correo electrónico</string>
+    <string name="password">Contraseña</string>
+    <string name="login">Iniciar sesión</string>
+    <string name="register">Registrarse</string>
+    <string name="welcome_text">BIENVENIDO A FRIENDLINK</string>
+
+    <!--  Resource string name for register fragment  -->
+    <string name="first_name">Nombre</string>
+    <string name="last_name">Apellido</string>
+    <string name="confirm_password">Confirmar contraseña</string>
+    <string name="phone_number">Número de teléfono</string>
+    <string name="register_button">Registrarse</string>
+    <string name="already_have_account">¿Ya tienes una cuenta?</string>
+    <string name="login_here">Inicia sesión aquí</string>
+    <string name="createAccount">CREAR UNA CUENTA</string>
+
+    <!--  Resource string name for profile fragment  -->
+    <string name="not_login">Todavía no has iniciado sesión</string>
+    <string name="sent">Enviado</string>
+    <string name="received">Recibido</string>
+    <string name="placeholder_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
+    <string name="placeholder_date">1 de diciembre</string>
+    <string name="placeholder_phone_number">123-456-789</string>
+    <string name="logout_button_description">Este es un botón para que los usuarios puedan cerrar sesión en su cuenta.</string>
+</resources>
