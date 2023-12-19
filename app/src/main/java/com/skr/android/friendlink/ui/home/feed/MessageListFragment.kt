@@ -40,7 +40,7 @@ class MessageListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        messageListViewModel.fetchMessages()
+        messageListViewModel.fetchTodayMessages()
 
 
         viewLifecycleOwner.lifecycleScope.launch {
