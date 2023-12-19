@@ -1,5 +1,7 @@
 package com.skr.android.friendlink.ui.friends
 
+import android.graphics.ColorMatrix
+import android.graphics.ColorMatrixColorFilter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -12,13 +14,23 @@ class FriendHolder (val binding: ListItemFriendBinding) : RecyclerView.ViewHolde
         binding.friendName.text = name
         binding.friendPhoneNumber.text = friend.phoneNumber
         // Set different background color based on registration status
-        val backgroundColor = if (!friend.registered) {
-            binding.root.context.getColor(R.color.grey)
+//        val backgroundColor = if (!friend.registered) {
+//            binding.root.context.getColor(R.color.transparent)
+//        } else {
+//            binding.root.context.getColor(R.color.transparent)
+//        }
+
+        // Desaturate the profile image if the contact is not registered on FriendLink
+        if (!friend.registered) {
+            val matrix = ColorMatrix()
+            matrix.setSaturation(0f)
+            val filter = ColorMatrixColorFilter(matrix)
+            binding.profileImg.colorFilter = filter
         } else {
-            binding.root.context.getColor(R.color.transparent)
+            binding.profileImg.colorFilter = null
         }
 
-        binding.root.setBackgroundColor(backgroundColor)
+//        binding.root.setBackgroundColor(backgroundColor)
         binding.root.setOnClickListener {
             clickListener(friend)
         }
