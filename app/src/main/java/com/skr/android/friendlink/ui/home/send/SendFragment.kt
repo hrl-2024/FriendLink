@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
@@ -54,7 +55,12 @@ class SendFragment : Fragment() {
                 if (document != null) {
                     val friendFirstName = document.getString("first")
                     val friendLastName = document.getString("last")
+                    val friendProfilePic = document.getString("profilePicture")
+                    Log.d(TAG, "DocumentSnapshot data: ${document.data}")
                     binding.friendName.text = "$friendFirstName $friendLastName"
+                    Glide.with(binding.root.context)
+                        .load(friendProfilePic)
+                        .into(binding.friendPhoto)
                 } else {
                     Log.d(TAG, "No such document")
                 }

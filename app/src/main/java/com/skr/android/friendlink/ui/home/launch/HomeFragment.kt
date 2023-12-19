@@ -198,8 +198,11 @@ class HomeFragment : Fragment() {
                                         )
                                     }
                                 }
-                            } else {
+                            }
+                            else {
                                 Log.d(TAG, "No friends found")
+                                val notificationText = resources.getString(R.string.no_friend_text)
+                                binding.notificationText.text = notificationText
                             }
                         } else {
                             Log.d(TAG, "No user found")
@@ -212,6 +215,7 @@ class HomeFragment : Fragment() {
                     val notificationText = resources.getString(R.string.message_already_sent)
                     binding.notificationText.text = notificationText
                     binding.guideText.visibility = View.GONE
+                    binding.heartImage.setImageDrawable(resources.getDrawable(R.drawable.hourglass, null))
 
                     binding.revealFriendButton.isEnabled = false
                     val timeUntilNextDay = getTimeUntilNextDay()

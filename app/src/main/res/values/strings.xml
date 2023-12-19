@@ -11,7 +11,7 @@
     <string name="notification_text">You have received %1$d messages!</string>
     <string name="send_message_hint">Send yours now to view them</string>
     <string name="reveal_friend_button_text">Reveal friend of the day</string>
-    <string name="message_already_sent">You have already sent a message today!</string>
+    <string name="message_already_sent">You have sent a message today!</string>
     <string name="no_messages_text">You have received no new messages</string>
 
     <string name="no_friend_text">You have no friends yet</string>
@@ -19,6 +19,7 @@
     <string name="type_message_hint">Type your message here</string>
     <string name="to">TO</string>
     <string name="title_contact">CONTACT</string>
+    <string name="prompt_message">What is something that made you happy today?</string>
 
     <!--  Resource string name for Sent fragment  -->
     <string name="message_sent">Message Sent!</string>
